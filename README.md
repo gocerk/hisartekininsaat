@@ -1,4 +1,4 @@
-# Hisar Tekin İnşaat — Kurumsal Portfolyo
+# Tekin Group — Kurumsal Portfolyo
 
 Statik, bağımlılıksız site. `index.html` doğrudan herhangi bir hostingde (Netlify, Vercel, GitHub Pages, cPanel) çalışır.
 
@@ -7,3 +7,4 @@ Statik, bağımlılıksız site. `index.html` doğrudan herhangi bir hostingde (
 - `img/` — web için optimize edilmiş proje fotoğrafları (webp).
 - `assets/img/` — orijinal fotoğraflar (AI video üretiminde başlangıç karesi olarak kullanılıyor).
 - Diller: `index.html` içindeki `EN` sözlüğü. Yeni dil eklemek için aynı anahtarlarla yeni bir nesne ekleyip `DICT`'e ve dil butonlarına ekleyin.
+- Proje detay sayfaları `#proje-<id>` adresinde açılır (ör. `#proje-mevlana`). Proje verileri `index.html` içindeki `PROJECTS` dizisindedir; görsel eklemek için ilgili projenin `imgs` listesine `['dosyaadi', {tr:'…', en:'…'}]` ekleyin.

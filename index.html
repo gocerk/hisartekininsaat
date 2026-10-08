@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Hisar Tekin İnşaat — İstanbul'da konut ve eğitim yapıları. Projeler, süreç ve iletişim.">
-<title>Hisar Tekin İnşaat</title>
+<meta name="description" content="Tekin Group — İstanbul'da konut, ticari yapı ve mühendislik hizmetleri. Güçlü Mühendislik. Çağdaş Mimari. Güvenilir Gelecek.">
+<title>Tekin Group</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
 <style>
-/* Layout: pinned scroll-scrubbed hero film → data band → project dossiers (image + spec sheet) → pinned horizontal site-to-handover strip → timeline → corporate + contact. Single committed dark look. */
+/* Layout: pinned scroll-scrubbed hero film → figures band → ongoing (feature) + completed (card grid) projects, each opening its own detail view (#proje-…) → engineering services → pinned horizontal build strip → about → timeline → contact. Single committed dark look. */
 :root{
   --ink:#0c0f11;          /* page ground: night concrete */
   --slab:#141a1d;         /* raised surfaces */
@@ -26,6 +26,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{background:var(--ink);color:var(--chalk);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
@@ -37,20 +38,19 @@ h1,h2,h3{font-family:var(--f-display);font-stretch:125%;font-weight:700;line-hei
 .muted{color:var(--concrete)}
 
 /* Header */
-.top{position:fixed;inset:0 0 auto 0;z-index:30;padding-top:env(safe-area-inset-top,0px);transition:background .4s, border-color .4s;background:linear-gradient(180deg,rgba(12,15,17,.88) 0%,rgba(12,15,17,.7) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top{position:fixed;inset:0 0 auto 0;z-index:30;padding-top:env(safe-area-inset-top,0px);transition:background .4s;background:linear-gradient(180deg,rgba(12,15,17,.88) 0%,rgba(12,15,17,.7) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .top.solid{background:rgba(12,15,17,.94)}
-.top .nav a{color:#c9ccc8}
 .top-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:18px}
-.brand{display:flex;flex-direction:column;text-decoration:none;line-height:1}
-.brand b{font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:1.05rem;letter-spacing:.06em}
-.brand small{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.32em;color:var(--sand);margin-top:5px}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;line-height:1}
+.brand b{font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:1.2rem;letter-spacing:.08em}
+.brand small{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.34em;color:var(--sand)}
 .nav{display:flex;align-items:center;gap:28px}
-.nav a{text-decoration:none;font-size:var(--s-sm);color:var(--concrete);transition:color .2s}
+.nav a{text-decoration:none;font-size:var(--s-sm);color:#c9ccc8;transition:color .2s}
 .nav a:hover{color:var(--chalk)}
 .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .lang button{background:none;border:0;color:var(--concrete);font:500 .72rem var(--f-mono);letter-spacing:.1em;padding:6px 11px;cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--chalk);color:var(--ink)}
-@media (max-width:820px){.nav a{display:none}}
+@media (max-width:900px){.nav a{display:none}}
 
 /* Hero film */
 .film{position:relative;height:440vh}
@@ -72,56 +72,89 @@ h1,h2,h3{font-family:var(--f-display);font-stretch:125%;font-weight:700;line-hei
 
 /* Figures band */
 .band{border-block:1px solid var(--line);background:var(--slab)}
-.band-in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));}
-.fig{padding:clamp(24px,4vw,44px) 0;padding-right:16px;border-right:1px solid var(--line);padding-left:clamp(0px,2vw,28px)}
+.band-in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.fig{padding:clamp(24px,4vw,44px) 16px clamp(24px,4vw,44px) clamp(0px,2vw,28px);border-right:1px solid var(--line)}
 .fig:first-child{padding-left:0}
 .fig:last-child{border-right:0}
 .fig b{display:block;font-family:var(--f-display);font-stretch:110%;font-weight:600;font-size:clamp(2rem,4.2vw,3.4rem);line-height:1;font-variant-numeric:tabular-nums}
 .fig b sup{font-size:.4em;color:var(--sand);margin-left:4px;vertical-align:top}
 .fig span{display:block;margin-top:10px;font-size:var(--s-sm);color:var(--concrete);max-width:24ch}
-@media (max-width:760px){.band-in{grid-template-columns:1fr 1fr}.fig{padding-left:0}.fig:nth-child(2){border-right:0}.fig:nth-child(-n+2){border-bottom:1px solid var(--line)}.fig:nth-child(3){padding-left:0}}
+@media (max-width:760px){.band-in{grid-template-columns:1fr 1fr}.fig,.fig:first-child{padding-left:0}.fig:nth-child(2){border-right:0}.fig:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 
-/* Section heads */
+/* Sections */
 .sec{padding-block:clamp(80px,12vw,160px)}
-.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:clamp(40px,6vw,80px)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:clamp(40px,6vw,72px)}
 .sec-head h2{font-size:var(--s-xl)}
 .sec-head p{margin:0;color:var(--concrete);max-width:52ch;justify-self:end}
 @media (max-width:760px){.sec-head{grid-template-columns:1fr}.sec-head p{justify-self:start}}
+.group-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:28px}
+.group-title h3{font-size:clamp(1.25rem,2vw,1.6rem);font-stretch:110%}
+.group-title span{font-family:var(--f-mono);font-size:var(--s-xs);color:var(--concrete);letter-spacing:.1em}
+.group + .group{margin-top:clamp(64px,9vw,120px)}
 
-/* Project dossiers */
-.dossier{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);padding-block:clamp(40px,6vw,72px);border-top:1px solid var(--line)}
-.dossier:nth-of-type(even) .media{order:2}
-.media{min-width:0}
-.media .main{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--slab)}
-.media .main img{width:100%;height:100%;object-fit:cover;transform:scale(1.06) translateY(var(--py,0px));transition:opacity .45s}
-.thumbs{display:flex;gap:8px;margin-top:8px;overflow-x:auto;scrollbar-width:none}
-.thumbs button{flex:0 0 auto;width:84px;aspect-ratio:4/3;padding:0;border:1px solid transparent;background:none;cursor:pointer;opacity:.55;transition:opacity .2s,border-color .2s}
-.thumbs button img{width:100%;height:100%;object-fit:cover}
-.thumbs button[aria-current="true"]{opacity:1;border-color:var(--sand)}
-.thumbs button:hover{opacity:1}
-.sheet{min-width:0;display:flex;flex-direction:column;gap:20px;align-self:center}
-.status{align-self:flex-start;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--line);color:var(--concrete);display:inline-flex;gap:8px;align-items:center}
+/* Status chip */
+.status{align-self:flex-start;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--line);color:var(--concrete);display:inline-flex;gap:8px;align-items:center;background:var(--shade)}
 .status.live{color:var(--sand);border-color:rgba(212,182,140,.45)}
 .status.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sand);animation:pulse 2s infinite}
 @keyframes pulse{50%{opacity:.25}}
-.sheet h3{font-size:clamp(1.7rem,3vw,2.5rem)}
-.sheet > p{margin:0;color:var(--concrete);max-width:48ch}
+
+/* Spec list */
 .specs{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);border-top:1px solid var(--line)}
 .specs dt,.specs dd{padding:11px 0;border-bottom:1px solid var(--line);margin:0}
 .specs dt{font-family:var(--f-mono);font-size:var(--s-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--concrete);padding-right:24px}
 .specs dd{font-variant-numeric:tabular-nums;text-align:right}
-.maplink{align-self:flex-start;font-size:var(--s-sm);color:var(--sand);text-decoration:none;border-bottom:1px solid rgba(212,182,140,.4);padding-bottom:2px}
-.maplink:hover{border-color:var(--sand)}
-@media (max-width:860px){.dossier{grid-template-columns:1fr}.dossier:nth-of-type(even) .media{order:0}}
 
-/* Text-only dossier rows */
-.mini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,64px);border-top:1px solid var(--line);padding-top:clamp(40px,6vw,72px)}
-.mini article{display:flex;flex-direction:column;gap:18px;min-width:0}
-.mini h3{font-size:clamp(1.4rem,2.4vw,1.9rem)}
-.units{display:flex;align-items:flex-end;gap:6px;height:120px;padding-top:8px}
-.units div{flex:1;background:linear-gradient(180deg,var(--sand),rgba(212,182,140,.25));position:relative;min-width:0}
-.units div span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:.68rem;color:var(--concrete)}
-@media (max-width:760px){.mini{grid-template-columns:1fr}}
+.cta{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:500;color:var(--ink);background:var(--sand);padding:12px 18px;transition:background .2s}
+.cta:hover{background:var(--chalk)}
+.textlink{align-self:flex-start;font-size:var(--s-sm);color:var(--sand);text-decoration:none;border-bottom:1px solid rgba(212,182,140,.4);padding-bottom:2px}
+.textlink:hover{border-color:var(--sand)}
+
+/* Ongoing feature */
+.feature{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center}
+.feature .ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--slab);display:block}
+.feature .ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.06) translateY(var(--py,0px));transition:transform .6s}
+.feature .ph:hover img{transform:scale(1.09) translateY(var(--py,0px))}
+.feature .ph .status{position:absolute;left:16px;top:16px}
+.sheet{min-width:0;display:flex;flex-direction:column;gap:20px}
+.sheet h3{font-size:clamp(1.7rem,3vw,2.5rem)}
+.sheet > p{margin:0;color:var(--concrete);max-width:48ch}
+@media (max-width:860px){.feature{grid-template-columns:1fr}}
+
+/* Completed cards */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,28px)}
+.card{display:flex;flex-direction:column;gap:14px;text-decoration:none;min-width:0}
+.card .ph{aspect-ratio:4/3;overflow:hidden;background:var(--slab);position:relative}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card:hover .ph img{transform:scale(1.05)}
+.card .ph.type{display:flex;flex-direction:column;justify-content:flex-end;padding:22px;border:1px solid var(--line);background:linear-gradient(160deg,var(--slab),var(--ink))}
+.card .ph.type b{font-family:var(--f-display);font-stretch:110%;font-weight:600;font-size:clamp(2.2rem,4vw,3.2rem);line-height:1}
+.card .ph.type b sup{font-size:.4em;color:var(--sand);margin-left:4px;vertical-align:top}
+.card .ph.type span{color:var(--concrete);font-size:var(--s-sm);margin-top:8px}
+.card .meta{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:var(--s-xs);color:var(--concrete);letter-spacing:.06em}
+.card h4{margin:0;font-family:var(--f-display);font-stretch:110%;font-weight:600;font-size:1.3rem;line-height:1.15}
+.card p{margin:0;color:var(--concrete);font-size:var(--s-sm)}
+.card .go{font-size:var(--s-sm);color:var(--sand)}
+.units{display:flex;align-items:flex-end;gap:6px;height:100%;padding-top:26px}
+.units div{flex:1;background:linear-gradient(180deg,var(--sand),rgba(212,182,140,.2));position:relative;min-width:0}
+.units div span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:.66rem;color:var(--concrete)}
+@media (max-width:960px){.cards{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cards{grid-template-columns:1fr}}
+
+/* Engineering */
+.eng{background:var(--slab);border-block:1px solid var(--line)}
+.eng-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:clamp(32px,6vw,96px)}
+.eng-intro{display:flex;flex-direction:column;gap:20px;align-self:start;position:sticky;top:120px}
+.eng-intro h2{font-size:var(--s-xl)}
+.eng-intro p{margin:0;color:#cfcec8;max-width:46ch}
+.svc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.svc li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 24px;padding:26px 0;border-bottom:1px solid var(--line)}
+.svc h3{font-size:clamp(1.15rem,1.8vw,1.45rem);font-stretch:105%;font-weight:600;line-height:1.2}
+.svc p{grid-column:1;margin:0;color:var(--concrete);max-width:58ch}
+.svc .ref{grid-column:2;grid-row:1 / span 2;align-self:start;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;color:var(--sand);border:1px solid rgba(212,182,140,.35);padding:5px 9px;max-width:22ch;text-align:right;line-height:1.4}
+.ekb{grid-column:1;display:flex;gap:3px;margin-top:6px}
+.ekb span{font-family:var(--f-mono);font-size:.68rem;font-weight:500;color:#0c0f11;padding:3px 0;width:30px;text-align:center}
+@media (max-width:860px){.eng-grid{grid-template-columns:1fr}.eng-intro{position:static}}
+@media (max-width:560px){.svc li{grid-template-columns:1fr}.svc .ref{grid-column:1;grid-row:auto;text-align:left;justify-self:start}}
 
 /* Horizontal build strip */
 .strip{position:relative}
@@ -137,6 +170,19 @@ h1,h2,h3{font-family:var(--f-display);font-stretch:125%;font-weight:700;line-hei
 .tile.wide img{aspect-ratio:4/3}
 @media (max-width:760px){.strip{height:auto!important}.strip-stick{position:static;height:auto;padding-block:80px}.track{overflow-x:auto;transform:none!important;scroll-snap-type:x mandatory}.tile{scroll-snap-align:start;width:78vw}.tile.wide{width:88vw}}
 
+/* About */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(32px,6vw,96px);align-items:start}
+.about-img{aspect-ratio:4/5;overflow:hidden;position:sticky;top:110px}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.about-copy{display:flex;flex-direction:column;gap:22px}
+.about-copy h2{font-size:var(--s-xl)}
+.about-copy .lead{font-size:var(--s-lg);line-height:1.45;color:var(--chalk);margin:0;max-width:40ch}
+.about-copy p{margin:0;color:#cfcec8;max-width:60ch}
+.about-copy blockquote{margin:8px 0;padding:6px 0 6px 22px;border-left:2px solid var(--sand);font-family:var(--f-display);font-stretch:110%;font-weight:500;font-size:clamp(1.3rem,2.2vw,1.75rem);line-height:1.25;text-wrap:balance}
+.motto{font-family:var(--f-display);font-stretch:125%;font-weight:700;font-size:clamp(1.1rem,1.8vw,1.4rem);letter-spacing:.01em;border-top:1px solid var(--line);padding-top:22px;margin-top:6px;display:grid;gap:6px}
+.motto small{font-family:var(--f-mono);font-weight:400;font-size:var(--s-xs);letter-spacing:.34em;color:var(--sand)}
+@media (max-width:860px){.about{grid-template-columns:1fr}.about-img{position:static;aspect-ratio:16/10}}
+
 /* Timeline */
 .timeline{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line)}
 .timeline li{padding:24px 16px 0 0;position:relative;min-width:0}
@@ -147,34 +193,56 @@ h1,h2,h3{font-family:var(--f-display);font-stretch:125%;font-weight:700;line-hei
 .timeline span{font-size:var(--s-sm);color:var(--concrete)}
 @media (max-width:900px){.timeline{grid-template-columns:1fr;border-top:0;border-left:1px solid var(--line);gap:28px}.timeline li{padding:0 0 0 24px}.timeline li::before{top:6px;left:-5px}}
 
-/* Corporate */
-.corp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
-.corp-img{aspect-ratio:4/5;overflow:hidden}
-.corp-img img{width:100%;height:100%;object-fit:cover}
-.corp-copy{display:flex;flex-direction:column;gap:24px}
-.corp-copy h2{font-size:var(--s-xl)}
-.corp-copy p{margin:0;color:#cfcec8;max-width:56ch}
-.pillars{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
-.pillars div{border-top:1px solid var(--line);padding-top:14px}
-.pillars b{display:block;font-weight:500;margin-bottom:4px}
-.pillars span{font-size:var(--s-sm);color:var(--concrete)}
-@media (max-width:860px){.corp{grid-template-columns:1fr}.corp-img{aspect-ratio:16/10}}
-@media (max-width:480px){.pillars{grid-template-columns:1fr}}
-
 /* Contact */
 .contact{background:var(--slab);border-top:1px solid var(--line)}
 .contact-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(32px,6vw,96px)}
 .contact h2{font-size:var(--s-xxl)}
 .addr{display:flex;flex-direction:column;gap:22px}
-.addr div{border-top:1px solid var(--line);padding-top:14px}
+.addr > div{border-top:1px solid var(--line);padding-top:14px}
 .addr address{font-style:normal;font-size:var(--s-lg);line-height:1.4}
-.copy{background:none;border:1px solid var(--line);color:var(--chalk);font:500 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;cursor:pointer;margin-top:12px;margin-right:8px}
+.copy{background:none;border:1px solid var(--line);color:var(--chalk);font:500 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;cursor:pointer;margin:12px 8px 0 0}
 .copy:hover{border-color:var(--sand)}
-.pending{font-family:var(--f-mono);font-size:var(--s-sm);color:var(--concrete)}
+.pending{font-family:var(--f-mono);font-size:var(--s-sm);color:var(--concrete);margin:6px 0 0}
 @media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
 footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:var(--s-xs);color:var(--concrete);font-family:var(--f-mono)}
 
-/* Reveal: content is readable at rest; only a small lift is animated */
+/* Project detail view */
+.detail{padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+.d-hero{position:relative;height:min(78vh,760px);min-height:420px;overflow:hidden}
+.d-hero img,.d-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.d-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,15,17,.95) 0%,rgba(12,15,17,.35) 45%,rgba(12,15,17,.1) 100%)}
+.d-title{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(28px,5vw,56px);z-index:1;display:flex;flex-direction:column;gap:16px}
+.d-title h1{font-size:var(--s-xxl)}
+.back{display:inline-flex;gap:8px;align-items:center;font-family:var(--f-mono);font-size:var(--s-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--chalk);text-decoration:none;padding-block:22px}
+.back:hover{color:var(--sand)}
+.d-body{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);padding-block:clamp(32px,5vw,64px)}
+.d-body .lead{font-size:var(--s-lg);line-height:1.5;margin:0;max-width:52ch}
+.d-body .side{display:flex;flex-direction:column;gap:20px}
+.gal-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.gal-head h2{font-size:clamp(1.3rem,2.2vw,1.7rem);font-stretch:110%}
+.gal-head span{font-family:var(--f-mono);font-size:var(--s-xs);color:var(--concrete)}
+.gallery{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-flow:dense;gap:10px;padding-bottom:clamp(64px,8vw,120px)}
+.gallery button{padding:0;border:0;background:var(--slab);cursor:zoom-in;overflow:hidden;grid-column:span 4;aspect-ratio:4/3}
+.gallery button:nth-child(5n+1){grid-column:span 8;grid-row:span 2;aspect-ratio:auto}
+.gallery button img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gallery button:hover img{transform:scale(1.04)}
+.nextp{display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid var(--line);padding-block:32px 72px}
+.nextp a{text-decoration:none;display:grid;gap:6px}
+.nextp a b{font-family:var(--f-display);font-stretch:110%;font-weight:600;font-size:clamp(1.3rem,2.4vw,2rem)}
+.nextp a:hover b{color:var(--sand)}
+@media (max-width:860px){.d-body{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr}.gallery button,.gallery button:nth-child(5n+1){grid-column:span 1;grid-row:auto;aspect-ratio:4/3}.gallery button:nth-child(3n+1){grid-column:span 2;aspect-ratio:16/10}}
+
+/* Lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(8,10,11,.96);display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 56px) 16px calc(env(safe-area-inset-bottom,0px) + 56px)}
+.lb img{max-height:100%;max-width:100%;object-fit:contain}
+.lb button{position:absolute;background:var(--shade);border:1px solid var(--line);color:var(--chalk);font:500 .8rem var(--f-mono);letter-spacing:.08em;padding:10px 14px;cursor:pointer}
+.lb button:hover{border-color:var(--sand)}
+.lb .x{top:calc(env(safe-area-inset-top,0px) + 12px);right:16px}
+.lb .pv{left:16px;top:50%;transform:translateY(-50%)}
+.lb .nx{right:16px;top:50%;transform:translateY(-50%)}
+.lb .ct{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:var(--s-xs);color:var(--concrete)}
+
+/* Reveal: readable at rest, small lift only */
 .rv{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .rv.pre{transform:translateY(28px)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv,.rv.pre{transform:none;transition:none}.cap{transition:none}.status.live::before{animation:none}}
@@ -185,11 +253,11 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
 
 <header class="top" id="top">
   <div class="wrap top-in">
-    <a class="brand" href="#hero" aria-label="Hisar Tekin İnşaat"><b>HİSAR TEKİN</b><small>İNŞAAT A.Ş.</small></a>
+    <a class="brand" href="#hero" aria-label="Tekin Group"><b>TEKİN</b><small>GROUP</small></a>
     <nav class="nav" aria-label="Ana menü">
       <a href="#projeler" data-i18n="nav.projects">Projeler</a>
-      <a href="#surec" data-i18n="nav.process">Süreç</a>
-      <a href="#kurumsal" data-i18n="nav.about">Kurumsal</a>
+      <a href="#muhendislik" data-i18n="nav.eng">Mühendislik</a>
+      <a href="#hakkimizda" data-i18n="nav.about">Hakkımızda</a>
       <a href="#iletisim" data-i18n="nav.contact">İletişim</a>
       <div class="lang" role="group" aria-label="Dil">
         <button type="button" data-lang="tr" aria-pressed="true">TR</button>
@@ -199,7 +267,7 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
   </div>
 </header>
 
-<main>
+<main id="home">
   <!-- Scroll-scrubbed hero film: Mevlana site, plot → structure → handover -->
   <section class="film" id="hero" aria-label="Mevlana projesi">
     <div class="film-stick">
@@ -210,7 +278,6 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
         Mevlana Mah. · 3526 Ada / 5 Parsel
         <span>23.000 m²</span>
       </div>
-
       <div class="cap" data-stage="0">
         <div class="eyebrow" data-i18n="hero.s0.eyebrow">Mevlana Projesi · Yapım aşamasında</div>
         <h1 data-i18n="hero.s0.title">Arsadan yaşam alanına.</h1>
@@ -226,7 +293,6 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
         <h2 data-i18n="hero.s2.title">Bir mahalleye değer katan yapılar.</h2>
         <p data-i18n="hero.s2.body">Peyzajlı iç bahçe, havuz ve spor alanlarıyla tamamlanan bir yaşam alanı.</p>
       </div>
-
       <div class="stages" aria-hidden="true">
         <div class="stage on"><span data-i18n="hero.st0">01 · Arsa</span><i></i></div>
         <div class="stage"><span data-i18n="hero.st1">02 · Yapım</span><i></i></div>
@@ -235,13 +301,12 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
     </div>
   </section>
 
-  <!-- Figures from the company record -->
   <section class="band" aria-label="Rakamlarla">
     <div class="wrap band-in">
-      <div class="fig rv"><b>~25</b><span data-i18n="fig.buildings">tamamlanan ve devam eden yapı</span></div>
-      <div class="fig rv"><b>527</b><span data-i18n="fig.units">konut teslim edildi</span></div>
+      <div class="fig rv"><b>20<sup>+</sup></b><span data-i18n="fig.years">yıllık deneyim</span></div>
+      <div class="fig rv"><b>5.000<sup>+</sup></b><span data-i18n="fig.units">konuttan edinilen birikim</span></div>
       <div class="fig rv"><b>81.700<sup>m²</sup></b><span data-i18n="fig.area">dört büyük projede toplam inşaat alanı</span></div>
-      <div class="fig rv"><b>19</b><span data-i18n="fig.floors">kat: Gürsel Residence yüksekliği</span></div>
+      <div class="fig rv"><b>23.000<sup>m²</sup></b><span data-i18n="fig.live">şu an yapımı süren Mevlana projesi</span></div>
     </div>
   </section>
 
@@ -255,119 +320,72 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
       <p data-i18n="proj.intro">İstanbul'da konut ve eğitim yapıları. Her projenin ruhsatı ve iş bitirme belgesi mevcuttur.</p>
     </div>
 
-    <article class="dossier" data-project="mevlana">
-      <div class="media">
-        <div class="main"><img src="img/img30.webp" alt="Mevlana projesi vaziyet planı, üç blok ve iç bahçe" loading="lazy"></div>
-        <div class="thumbs">
-          <button type="button" aria-current="true"><img src="img/img30.webp" alt="Vaziyet görseli" loading="lazy"></button>
-          <button type="button"><img src="img/img31.webp" alt="Havuz ve peyzaj görseli" loading="lazy"></button>
-          <button type="button"><img src="img/img34.webp" alt="Şantiyeden güncel görünüm" loading="lazy"></button>
-          <button type="button"><img src="img/img33.webp" alt="Kaba inşaat görünümü" loading="lazy"></button>
-          <button type="button"><img src="img/img29.webp" alt="Arsa, yapım öncesi" loading="lazy"></button>
+    <div class="group" id="devam-eden">
+      <div class="group-title"><h3 data-i18n="grp.live">Devam eden projeler</h3><span>01</span></div>
+      <article class="feature">
+        <a class="ph" href="#proje-mevlana" aria-label="Mevlana"><img src="img/img30.webp" alt="Mevlana projesi vaziyet görseli, üç blok ve iç bahçe" loading="lazy"><span class="status live" data-i18n="st.live">Yapım aşamasında</span></a>
+        <div class="sheet rv">
+          <div class="eyebrow">Mevlana Mah. · 3526 / 5</div>
+          <h3>Mevlana</h3>
+          <p data-i18n="p.mevlana">Peyzajlı iç bahçe, yüzme havuzu, çocuk oyun alanı ve basketbol sahası çevresinde konumlanan üç konut bloğu.</p>
+          <dl class="specs">
+            <dt data-i18n="sp.area">İnşaat alanı</dt><dd>23.000 m²</dd>
+            <dt data-i18n="sp.blocks">Blok</dt><dd>3</dd>
+            <dt data-i18n="sp.status">Durum</dt><dd data-i18n="st.live">Yapım aşamasında</dd>
+          </dl>
+          <a class="cta" href="#proje-mevlana" data-i18n="go.detail">Projeyi incele →</a>
         </div>
-      </div>
-      <div class="sheet rv">
-        <span class="status live" data-i18n="st.live">Yapım aşamasında</span>
-        <h3>Mevlana</h3>
-        <p data-i18n="p.mevlana">Peyzajlı iç bahçe, yüzme havuzu, çocuk oyun alanı ve basketbol sahası çevresinde konumlanan üç konut bloğu.</p>
-        <dl class="specs">
-          <dt data-i18n="sp.loc">Konum</dt><dd>Mevlana Mah., İstanbul</dd>
-          <dt data-i18n="sp.parcel">Ada / Parsel</dt><dd>3526 / 5</dd>
-          <dt data-i18n="sp.area">İnşaat alanı</dt><dd>23.000 m²</dd>
-          <dt data-i18n="sp.blocks">Blok</dt><dd>3</dd>
-        </dl>
-        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Mevlana+Mahallesi+%C4%B0stanbul" target="_blank" rel="noopener" data-i18n="sp.map">Haritada görüntüle ↗</a>
-      </div>
-    </article>
-
-    <article class="dossier" data-project="gursel">
-      <div class="media">
-        <div class="main"><img src="img/img11.webp" alt="Gürsel Residence havadan görünüm" loading="lazy"></div>
-        <div class="thumbs">
-          <button type="button" aria-current="true"><img src="img/img11.webp" alt="Havadan görünüm" loading="lazy"></button>
-          <button type="button"><img src="img/img12.webp" alt="Cephe" loading="lazy"></button>
-          <button type="button"><img src="img/img15.webp" alt="Bahçe" loading="lazy"></button>
-          <button type="button"><img src="img/img13.webp" alt="Bina girişi ve peyzaj" loading="lazy"></button>
-        </div>
-      </div>
-      <div class="sheet rv">
-        <span class="status" data-i18n="st.done">Tamamlandı · 2021</span>
-        <h3>Gürsel Residence</h3>
-        <p data-i18n="p.gursel">19 katlı konut kulesi. 152 daire, peyzajlı bahçe ve sosyal alanlarla teslim edildi.</p>
-        <dl class="specs">
-          <dt data-i18n="sp.years">Yapım yılı</dt><dd>2019 – 2021</dd>
-          <dt data-i18n="sp.units">Daire</dt><dd>152</dd>
-          <dt data-i18n="sp.floors">Kat</dt><dd>19</dd>
-          <dt data-i18n="sp.area">İnşaat alanı</dt><dd>16.000 m²</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="dossier" data-project="bil">
-      <div class="media">
-        <div class="main"><img src="img/img08.webp" alt="Bil Koleji kampüsü havadan" loading="lazy"></div>
-        <div class="thumbs">
-          <button type="button" aria-current="true"><img src="img/img08.webp" alt="Kampüs havadan" loading="lazy"></button>
-          <button type="button"><img src="img/img07.webp" alt="Okul cephesi" loading="lazy"></button>
-          <button type="button"><img src="img/img10.webp" alt="Kütüphane iç mekânı" loading="lazy"></button>
-        </div>
-      </div>
-      <div class="sheet rv">
-        <span class="status" data-i18n="st.done19">Tamamlandı · 2019</span>
-        <h3 data-i18n="n.bil">Bil Koleji</h3>
-        <p data-i18n="p.bil">Kağıthane metro istasyonunun yanında, spor sahası ve iç avlusuyla tam donanımlı bir eğitim kampüsü.</p>
-        <dl class="specs">
-          <dt data-i18n="sp.years">Yapım yılı</dt><dd>2018 – 2019</dd>
-          <dt data-i18n="sp.loc">Konum</dt><dd>Merkez Mah., Kağıthane</dd>
-          <dt data-i18n="sp.parcel1">Parsel</dt><dd>316</dd>
-          <dt data-i18n="sp.type">Tür</dt><dd data-i18n="sp.edu">Eğitim yapısı</dd>
-        </dl>
-        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Merkez+Mahallesi+K%C3%A2%C4%9F%C4%B1thane+metro" target="_blank" rel="noopener" data-i18n="sp.map">Haritada görüntüle ↗</a>
-      </div>
-    </article>
-
-    <article class="dossier" data-project="panorama">
-      <div class="media">
-        <div class="main"><img src="img/img04.webp" alt="Hisar Panorama sitesi havadan" loading="lazy"></div>
-        <div class="thumbs">
-          <button type="button" aria-current="true"><img src="img/img04.webp" alt="Havadan görünüm" loading="lazy"></button>
-          <button type="button"><img src="img/img05.webp" alt="Havuz ve bahçe" loading="lazy"></button>
-          <button type="button"><img src="img/img06.webp" alt="Site ve çevresi" loading="lazy"></button>
-        </div>
-      </div>
-      <div class="sheet rv">
-        <span class="status" data-i18n="st.done17">Tamamlandı · 2017</span>
-        <h3>Hisar Panorama</h3>
-        <p data-i18n="p.panorama">Kavisli blokları, açık yüzme havuzu ve peyzajlı ortak alanlarıyla 160 dairelik konut sitesi.</p>
-        <dl class="specs">
-          <dt data-i18n="sp.year">Teslim</dt><dd>2017</dd>
-          <dt data-i18n="sp.units">Daire</dt><dd>160</dd>
-          <dt data-i18n="sp.area">İnşaat alanı</dt><dd>30.000 m²</dd>
-        </dl>
-      </div>
-    </article>
-
-    <div class="mini">
-      <article class="rv">
-        <span class="status" data-i18n="st.done24">Tamamlandı · 2024</span>
-        <h3 data-i18n="n.kucukkoy">Küçükköy Projesi</h3>
-        <p class="muted" data-i18n="p.kucukkoy">Hisar Tekin İnşaat ve Tekin Alüminyum iş ortaklığıyla gerçekleştirilen konut projesi.</p>
-        <dl class="specs">
-          <dt data-i18n="sp.loc">Konum</dt><dd>Küçükköy, İstanbul</dd>
-          <dt data-i18n="sp.area">İnşaat alanı</dt><dd>12.700 m²</dd>
-          <dt data-i18n="sp.partner">Ortaklık</dt><dd>Tekin Alüminyum</dd>
-        </dl>
       </article>
-      <article class="rv">
-        <span class="status" data-i18n="st.pre16">2016 öncesi</span>
-        <h3 data-i18n="n.early">İlk dönem projeleri</h3>
-        <p class="muted" data-i18n="p.early">Yaklaşık 20 konut binası. Ruhsatları ve iş bitirme belgeleri mevcut. Projelere göre daire sayıları:</p>
-        <div class="units" id="units" aria-label="Daire sayıları: 20, 30, 15, 20, 10, 36, 14, 22, 48"></div>
-      </article>
+    </div>
+
+    <div class="group" id="tamamlanan">
+      <div class="group-title"><h3 data-i18n="grp.done">Tamamlanan projeler</h3><span id="doneCount">05</span></div>
+      <div class="cards" id="cards"></div>
     </div>
   </section>
 
-  <!-- Pinned horizontal strip: from excavation to handover -->
+  <!-- Engineering -->
+  <section class="eng" id="muhendislik">
+    <div class="sec wrap eng-grid">
+      <div class="eng-intro">
+        <div class="eyebrow" data-i18n="eng.eyebrow">Mühendislik</div>
+        <h2 data-i18n="eng.title">İnşaat ve mühendisliği tek bir vizyonda buluşturuyoruz.</h2>
+        <p data-i18n="eng.intro">Konut ve ticari yapı projelerimizin yanı sıra yapıların her aşamasına teknik değer katan mühendislik hizmetleri sunuyoruz.</p>
+      </div>
+      <ul class="svc">
+        <li class="rv">
+          <h3 data-i18n="svc.1">Elektrik-mekanik uygulama ve ruhsat projeleri</h3>
+          <span class="ref" data-i18n="svc.1r">Proje · Ruhsat · Uygulama</span>
+          <p data-i18n="svc.1d">Konut ve ticari yapılar için elektrik ve mekanik tesisat projelerinin hazırlanması, ruhsat süreçlerinin yürütülmesi ve sahada uygulanması.</p>
+        </li>
+        <li class="rv">
+          <h3 data-i18n="svc.2">Topraklama ölçüm raporları</h3>
+          <span class="ref" data-i18n="svc.2r">Elektrik Tesislerinde Topraklamalar Yönetmeliği</span>
+          <p data-i18n="svc.2d">Topraklama ve yıldırımdan korunma tesisatlarının ölçümü ile yönetmeliğe uygun periyodik raporlanması.</p>
+        </li>
+        <li class="rv">
+          <h3 data-i18n="svc.3">Akustik proje hazırlama</h3>
+          <span class="ref" data-i18n="svc.3r">Binaların Gürültüye Karşı Korunması Hakkında Yönetmelik</span>
+          <p data-i18n="svc.3d">Yapıların gürültüye karşı korunması için ses yalıtımı hesapları ve akustik projelendirme.</p>
+        </li>
+        <li class="rv">
+          <h3 data-i18n="svc.4">Enerji kimlik belgesi hazırlama</h3>
+          <span class="ref">BEP-TR</span>
+          <p data-i18n="svc.4d">Bina enerji performansının hesaplanması ve A'dan G'ye sınıflandırılan Enerji Kimlik Belgesinin düzenlenmesi.</p>
+          <div class="ekb" aria-label="Enerji sınıfları A'dan G'ye">
+            <span style="background:#3f9e5a">A</span><span style="background:#6db24f">B</span><span style="background:#b5c843">C</span><span style="background:#ecd83f">D</span><span style="background:#f0b13a">E</span><span style="background:#e8793a">F</span><span style="background:#d9473a">G</span>
+          </div>
+        </li>
+        <li class="rv">
+          <h3 data-i18n="svc.5">Trafo proje ve uygulama hizmetleri</h3>
+          <span class="ref">OG / AG</span>
+          <p data-i18n="svc.5d">Trafo merkezlerinin projelendirilmesi, onay süreçlerinin takibi, montajı ve devreye alınması.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Pinned horizontal strip -->
   <section class="strip" id="surec" aria-label="Süreç">
     <div class="strip-stick">
       <div class="wrap strip-head">
@@ -375,7 +393,7 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
           <div class="eyebrow" data-i18n="proc.eyebrow">Şantiyeden teslime</div>
           <h2 data-i18n="proc.title">Temelden anahtar teslimine</h2>
         </div>
-        <p class="muted" style="margin:0;max-width:40ch" data-i18n="proc.intro">Kazıdan iç mekân detaylarına kadar her aşamayı kendi ekiplerimizle yürütürüz.</p>
+        <p class="muted" style="margin:0;max-width:40ch" data-i18n="proc.intro">Kazıdan iç mekân detaylarına kadar her aşama, tasarım kalitesi ve mühendislik disipliniyle yürütülür.</p>
       </div>
       <div class="track" id="track">
         <figure class="tile wide"><img src="img/img16.webp" alt="Şantiye havadan" loading="lazy"><figcaption><b data-i18n="t.site">Şantiye kurulumu</b><span>01</span></figcaption></figure>
@@ -392,8 +410,26 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
     </div>
   </section>
 
+  <!-- About -->
+  <section class="sec wrap" id="hakkimizda">
+    <div class="about">
+      <div class="about-img rv"><img src="img/img12.webp" alt="Konut kulesi cephesi" loading="lazy"></div>
+      <div class="about-copy rv">
+        <div class="eyebrow" data-i18n="ab.eyebrow">Hakkımızda</div>
+        <h2 data-i18n="ab.title">Deneyimden Güç Alıyor, Geleceği Şekillendiriyoruz.</h2>
+        <p class="lead" data-i18n="ab.lead">20 yılı aşkın deneyimimiz ve 5.000'in üzerinde konuttan edindiğimiz birikimle, inşaat ve mühendislik alanlarında geleceğe değer katan çözümler üretiyoruz.</p>
+        <p data-i18n="ab.p1">TEKİN GROUP olarak çağdaş mimariyi, mühendislik uzmanlığını ve yenilikçi teknolojileri bir araya getiriyoruz. Estetik, fonksiyonellik ve sürdürülebilirliği esas alarak yalnızca bugünün değil, geleceğin ihtiyaçlarına da yanıt veren yaşam alanları geliştiriyoruz.</p>
+        <blockquote data-i18n="ab.quote">İnşaat ve mühendisliği tek bir vizyonda buluşturuyoruz.</blockquote>
+        <p data-i18n="ab.p2">Konut ve ticari yapı projelerimizin yanı sıra elektrik ve mekanik uygulama ve ruhsat projeleri, topraklama ölçüm ve raporlama, akustik projelendirme ve enerji kimlik belgesi hizmetleriyle yapıların her aşamasına teknik değer katıyoruz.</p>
+        <p data-i18n="ab.p3">Her projemizde tasarım kalitesini, mühendislik disiplinini ve güvenilirliği ön planda tutuyor; detaylara verdiğimiz önemle kalıcı ve nitelikli eserler ortaya koymayı hedefliyoruz.</p>
+        <p data-i18n="ab.p4">Geçmişten gelen deneyimimizi geleceğin teknolojileriyle birleştirerek gelişmeye, üretmeye ve yeni değerler oluşturmaya devam ediyoruz.</p>
+        <div class="motto"><small>TEKİN GROUP</small><span data-i18n="ab.motto">Güçlü Mühendislik. Çağdaş Mimari. Güvenilir Gelecek.</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- Timeline -->
-  <section class="sec wrap" aria-labelledby="tl-title">
+  <section class="sec wrap" aria-labelledby="tl-title" style="padding-top:0">
     <div class="sec-head">
       <div>
         <div class="eyebrow" data-i18n="tl.eyebrow">Kilometre taşları</div>
@@ -409,64 +445,173 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
       <li class="rv now"><time data-i18n="tl.y5">Bugün</time><b>Mevlana</b><span data-i18n="tl.d5">23.000 m² · yapım aşamasında</span></li>
     </ol>
   </section>
-
-  <!-- Corporate -->
-  <section class="sec wrap" id="kurumsal" style="padding-top:0">
-    <div class="corp">
-      <div class="corp-img rv"><img src="img/img12.webp" alt="Gürsel Residence cephesi" loading="lazy"></div>
-      <div class="corp-copy rv">
-        <div class="eyebrow" data-i18n="ab.eyebrow">Kurumsal</div>
-        <h2 data-i18n="ab.title">Ölçülü, sağlam, zamanında.</h2>
-        <p data-i18n="ab.p1">Hisar Tekin İnşaat, İstanbul'da konut ve eğitim yapıları üreten bir müteahhitlik firmasıdır. 2016 öncesinde başlayan yolculuğumuzda yaklaşık yirmi konut binasını, ardından Hisar Panorama, Gürsel Residence ve Bil Koleji gibi büyük ölçekli projeleri tamamladık.</p>
-        <p data-i18n="ab.p2">Arsa geliştirmeden anahtar teslime kadar süreci tek elden yönetiyor, her projeyi ruhsat ve iş bitirme belgeleriyle belgeliyoruz.</p>
-        <div class="pillars">
-          <div><b data-i18n="ab.k1">Konut</b><span data-i18n="ab.k1d">Site ve rezidans projeleri</span></div>
-          <div><b data-i18n="ab.k2">Eğitim yapıları</b><span data-i18n="ab.k2d">Okul ve kampüs inşaatı</span></div>
-          <div><b data-i18n="ab.k3">Belgeli teslim</b><span data-i18n="ab.k3d">Her projede ruhsat ve iş bitirme</span></div>
-          <div><b data-i18n="ab.k4">İş ortaklıkları</b><span data-i18n="ab.k4d">Tekin Alüminyum ile ortak projeler</span></div>
-        </div>
-        <dl class="specs" style="margin-top:8px">
-          <dt data-i18n="ab.title2">Ünvan</dt><dd>Hisar Tekin İnşaat San. ve Tic. A.Ş.</dd>
-          <dt data-i18n="ab.nace">Faaliyet</dt><dd data-i18n="ab.naced">41.00.01 · İkamet amaçlı bina inşaatı</dd>
-        </dl>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="contact" id="iletisim">
-    <div class="sec wrap contact-grid">
-      <div>
-        <div class="eyebrow" data-i18n="ct.eyebrow">İletişim</div>
-        <h2 data-i18n="ct.title">Bir sonraki projeyi konuşalım.</h2>
-      </div>
-      <div class="addr">
-        <div>
-          <div class="eyebrow" data-i18n="ct.office">Merkez ofis</div>
-          <address id="addr">Göztepe Mah. İstoç 2. Cad. A-4 Blok No: 1/2, İç Kapı B13<br>Bağcılar / İstanbul</address>
-          <button type="button" class="copy" data-copy="addr" data-i18n="ct.copy">Adresi kopyala</button>
-          <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=%C4%B0sto%C3%A7+2.+Cadde+A-4+Blok+Ba%C4%9Fc%C4%B1lar+%C4%B0stanbul" target="_blank" rel="noopener" data-i18n="sp.map">Haritada görüntüle ↗</a>
-        </div>
-        <div>
-          <div class="eyebrow" data-i18n="ct.phone">Telefon · E-posta</div>
-          <p class="pending" data-i18n="ct.pending">Telefon ve e-posta bilgileri eklenecek.</p>
-        </div>
-      </div>
-    </div>
-    <div class="wrap"><footer><span>© <span id="yr">2026</span> Hisar Tekin İnşaat San. ve Tic. A.Ş.</span><span>İstanbul</span></footer></div>
-  </section>
 </main>
+
+<!-- Project detail view, rendered from PROJECTS by the router -->
+<main id="detail" class="detail" hidden aria-live="polite"></main>
+
+<section class="contact" id="iletisim">
+  <div class="sec wrap contact-grid">
+    <div>
+      <div class="eyebrow" data-i18n="ct.eyebrow">İletişim</div>
+      <h2 data-i18n="ct.title">Bir sonraki projeyi konuşalım.</h2>
+    </div>
+    <div class="addr">
+      <div>
+        <div class="eyebrow" data-i18n="ct.office">Merkez ofis</div>
+        <address id="addr">Göztepe Mah. İstoç 2. Cad. A-4 Blok No: 1/2, İç Kapı B13<br>Bağcılar / İstanbul</address>
+        <button type="button" class="copy" data-copy="addr" data-i18n="ct.copy">Adresi kopyala</button>
+        <a class="textlink" href="https://www.google.com/maps/search/?api=1&query=%C4%B0sto%C3%A7+2.+Cadde+A-4+Blok+Ba%C4%9Fc%C4%B1lar+%C4%B0stanbul" target="_blank" rel="noopener" data-i18n="sp.map">Haritada görüntüle ↗</a>
+      </div>
+      <div>
+        <div class="eyebrow" data-i18n="ct.phone">Telefon · E-posta</div>
+        <p class="pending" data-i18n="ct.pending">Telefon ve e-posta bilgileri eklenecek.</p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><footer><span>© <span id="yr">2026</span> Tekin Group</span><span data-i18n="ab.motto">Güçlü Mühendislik. Çağdaş Mimari. Güvenilir Gelecek.</span></footer></div>
+</section>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Görsel">
+  <img id="lbImg" alt="">
+  <button type="button" class="x" id="lbX" data-i18n="lb.close">Kapat ✕</button>
+  <button type="button" class="pv" id="lbP" aria-label="Önceki">←</button>
+  <button type="button" class="nx" id="lbN" aria-label="Sonraki">→</button>
+  <span class="ct" id="lbC"></span>
+</div>
 
 <script>
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function(s,c){return (c||document).querySelector(s)};
   var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
-  document.getElementById('yr').textContent = new Date().getFullYear();
+  $('#yr').textContent = new Date().getFullYear();
+  var lang = 'tr';
+  function L(o){ return (o && typeof o==='object') ? (o[lang]||o.tr) : o; }
 
-  /* ---------- i18n (add a language by adding one object) ---------- */
+  /* ---------- Projects (one record per project; detail pages render from here) ---------- */
+  var PROJECTS = [
+    { id:'mevlana', name:'Mevlana', live:true,
+      status:{tr:'Yapım aşamasında',en:'Under construction'},
+      sub:'Mevlana Mah. · 3526 Ada / 5 Parsel',
+      video:'hero.mp4',
+      lead:{tr:'Peyzajlı iç bahçe, yüzme havuzu, çocuk oyun alanı ve basketbol sahası çevresinde konumlanan üç konut bloğu. Proje, yıkımı tamamlanan parsel üzerinde yükseliyor.',
+            en:'Three residential blocks arranged around a landscaped courtyard, swimming pool, playground and basketball court, rising on a parcel where demolition is complete.'},
+      specs:[[{tr:'Konum',en:'Location'},'Mevlana Mah., İstanbul'],[{tr:'Ada / Parsel',en:'Block / Parcel'},'3526 / 5'],[{tr:'İnşaat alanı',en:'Construction area'},'23.000 m²'],[{tr:'Blok',en:'Blocks'},'3'],[{tr:'Durum',en:'Status'},{tr:'Yapım aşamasında',en:'Under construction'}]],
+      map:'Mevlana+Mahallesi+%C4%B0stanbul',
+      imgs:[['img30',{tr:'Vaziyet görseli',en:'Site plan render'}],['img31',{tr:'Havuz ve peyzaj',en:'Pool and landscape'}],['img32',{tr:'Giriş ve ticari cephe',en:'Entrance and retail frontage'}],['img34',{tr:'Şantiyeden güncel görünüm',en:'Current site view'}],['img33',{tr:'Kaba inşaat',en:'Structural works'}],['img29',{tr:'Arsa, yapım öncesi',en:'Plot before construction'}]] },
+    { id:'gursel', name:'Gürsel Residence', year:'2019 – 2021', cardYear:'2021',
+      status:{tr:'Tamamlandı · 2021',en:'Completed · 2021'},
+      card:{tr:'152 daire · 19 kat',en:'152 apartments · 19 floors'},
+      lead:{tr:'19 katlı konut kulesi. 152 daire; lobi, peyzajlı bahçe ve sosyal alanlarla teslim edildi. Galeride kazıdan iç mekân detaylarına kadar yapım süreci yer alıyor.',
+            en:'A 19-storey residential tower. 152 apartments delivered with a lobby, landscaped gardens and shared amenities. The gallery follows construction from excavation to interior finishes.'},
+      specs:[[{tr:'Yapım yılı',en:'Built'},'2019 – 2021'],[{tr:'Daire',en:'Apartments'},'152'],[{tr:'Kat',en:'Floors'},'19'],[{tr:'İnşaat alanı',en:'Construction area'},'16.000 m²']],
+      imgs:[['img11',{tr:'Havadan görünüm',en:'Aerial view'}],['img12',{tr:'Cephe',en:'Facade'}],['img13',{tr:'Giriş ve peyzaj',en:'Entrance and landscape'}],['img15',{tr:'Bahçe',en:'Garden'}],['img27',{tr:'Kule ve çevresi',en:'Tower and surroundings'}],['img26',{tr:'Lobi',en:'Lobby'}],['img19',{tr:'Salon',en:'Living room'}],['img21',{tr:'Mutfak',en:'Kitchen'}],['img28',{tr:'Mutfak',en:'Kitchen'}],['img20',{tr:'Banyo',en:'Bathroom'}],['img22',{tr:'Oda',en:'Room'}],['img23',{tr:'Oda',en:'Room'}],['img24',{tr:'Balkon çıkışı',en:'Balcony door'}],['img25',{tr:'Daire girişi',en:'Apartment entrance'}],['img16',{tr:'Şantiye',en:'Construction site'}],['img18',{tr:'İksa ve kazı',en:'Shoring and excavation'}],['img17',{tr:'Temel donatısı',en:'Foundation rebar'}],['img14',{tr:'Radye temel',en:'Raft foundation'}]] },
+    { id:'bil', name:{tr:'Bil Koleji',en:'Bil College'}, year:'2018 – 2019', cardYear:'2019',
+      status:{tr:'Tamamlandı · 2019',en:'Completed · 2019'},
+      card:{tr:'Eğitim yapısı · Kağıthane',en:'Education building · Kağıthane'},
+      sub:'Kağıthane · Merkez Mah. · 316 Parsel',
+      lead:{tr:'Kağıthane metro istasyonunun yanında, spor sahası ve iç avlusuyla tam donanımlı bir eğitim kampüsü.',
+            en:'A fully equipped school campus next to Kağıthane metro station, with a sports court and inner courtyard.'},
+      specs:[[{tr:'Yapım yılı',en:'Built'},'2018 – 2019'],[{tr:'Konum',en:'Location'},'Merkez Mah., Kağıthane'],[{tr:'Parsel',en:'Parcel'},'316'],[{tr:'Tür',en:'Type'},{tr:'Eğitim yapısı',en:'Education building'}]],
+      map:'Merkez+Mahallesi+K%C3%A2%C4%9F%C4%B1thane+metro',
+      imgs:[['img08',{tr:'Kampüs havadan',en:'Campus from above'}],['img07',{tr:'Okul cephesi',en:'School facade'}],['img10',{tr:'Kütüphane',en:'Library'}]] },
+    { id:'panorama', name:'Hisar Panorama', year:'2017', cardYear:'2017',
+      status:{tr:'Tamamlandı · 2017',en:'Completed · 2017'},
+      card:{tr:'160 daire · 30.000 m²',en:'160 apartments · 30,000 m²'},
+      lead:{tr:'Kavisli blokları, açık yüzme havuzu ve peyzajlı ortak alanlarıyla 160 dairelik konut sitesi.',
+            en:'A 160-unit residential estate with curved blocks, an outdoor pool and landscaped common areas.'},
+      specs:[[{tr:'Teslim',en:'Delivered'},'2017'],[{tr:'Daire',en:'Apartments'},'160'],[{tr:'İnşaat alanı',en:'Construction area'},'30.000 m²']],
+      imgs:[['img04',{tr:'Havadan görünüm',en:'Aerial view'}],['img05',{tr:'Havuz ve bahçe',en:'Pool and garden'}],['img06',{tr:'Site ve çevresi',en:'Estate and surroundings'}]] },
+    { id:'kucukkoy', name:{tr:'Küçükköy Projesi',en:'Küçükköy Project'}, year:'2024', cardYear:'2024',
+      status:{tr:'Tamamlandı · 2024',en:'Completed · 2024'},
+      card:{tr:'Tekin Alüminyum iş ortaklığı',en:'Joint venture with Tekin Alüminyum'},
+      type:{big:'12.700',unit:'m²'},
+      lead:{tr:'Tekin Alüminyum iş ortaklığıyla gerçekleştirilen 12.700 m² inşaat alanlı konut projesi.',
+            en:'A residential project with 12,700 m² of construction area, delivered as a joint venture with Tekin Alüminyum.'},
+      specs:[[{tr:'Teslim',en:'Delivered'},'2024'],[{tr:'Konum',en:'Location'},'Küçükköy, İstanbul'],[{tr:'İnşaat alanı',en:'Construction area'},'12.700 m²'],[{tr:'Ortaklık',en:'Partner'},'Tekin Alüminyum']],
+      imgs:[] },
+    { id:'ilk-donem', name:{tr:'İlk dönem projeleri',en:'Early projects'}, year:{tr:'2016 öncesi',en:'Before 2016'}, cardYear:{tr:'2016 öncesi',en:'Before 2016'},
+      status:{tr:'Tamamlandı · 2016 öncesi',en:'Completed · before 2016'},
+      card:{tr:'~20 konut binası',en:'~20 residential buildings'},
+      units:[20,30,15,20,10,36,14,22,48],
+      lead:{tr:'2016 öncesinde tamamlanan yaklaşık 20 konut binası. Tüm projelerin ruhsatları ve iş bitirme belgeleri mevcuttur. Projelere göre daire sayıları: 20, 30, 15, 20, 10, 36, 14, 22 ve 48.',
+            en:'Around 20 residential buildings completed before 2016, all with permits and completion certificates. Apartments per project: 20, 30, 15, 20, 10, 36, 14, 22 and 48.'},
+      specs:[[{tr:'Dönem',en:'Period'},{tr:'2016 öncesi',en:'Before 2016'}],[{tr:'Bina',en:'Buildings'},'~20'],[{tr:'Proje başına daire',en:'Apartments per project'},'10 – 48']],
+      imgs:[] }
+  ];
+  function byId(id){ for(var i=0;i<PROJECTS.length;i++) if(PROJECTS[i].id===id) return PROJECTS[i]; }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]}); }
+  function unitsHTML(u){ var m=Math.max.apply(null,u); return '<div class="units">'+u.map(function(n){return '<div style="height:'+(n/m*100)+'%"><span>'+n+'</span></div>'}).join('')+'</div>'; }
+  function fmt(n){ return lang==='en' ? n.replace(/\./g,',') : n; }
+
+  function renderCards(){
+    var done = PROJECTS.filter(function(p){return !p.live});
+    $('#doneCount').textContent = ('0'+done.length).slice(-2);
+    $('#cards').innerHTML = done.map(function(p){
+      var ph;
+      if(p.imgs.length) ph='<div class="ph"><img src="img/'+p.imgs[0][0]+'.webp" alt="'+esc(L(p.name))+'" loading="lazy"></div>';
+      else if(p.units) ph='<div class="ph type">'+unitsHTML(p.units)+'</div>';
+      else ph='<div class="ph type"><b>'+fmt(p.type.big)+'<sup>'+p.type.unit+'</sup></b><span>'+esc(L({tr:'İnşaat alanı',en:'Construction area'}))+'</span></div>';
+      return '<a class="card rv" href="#proje-'+p.id+'">'+ph+
+        '<div class="meta"><span>'+esc(L(p.cardYear))+'</span><span>'+esc(L(p.card))+'</span></div>'+
+        '<h4>'+esc(L(p.name))+'</h4><span class="go">'+(lang==='en'?'View project →':'Projeyi incele →')+'</span></a>';
+    }).join('');
+  }
+
+  var gallery=[], gi=0;
+  function renderDetail(p){
+    var i = PROJECTS.indexOf(p), nx = PROJECTS[(i+1)%PROJECTS.length];
+    gallery = p.imgs;
+    var hero = p.video ? '<video src="'+p.video+'" poster="img/'+p.imgs[0][0]+'.webp" muted playsinline autoplay loop aria-hidden="true"></video>'
+             : (p.imgs.length ? '<img src="img/'+p.imgs[0][0]+'.webp" alt="'+esc(L(p.name))+'">' : '');
+    var specs = p.specs.map(function(s){ return '<dt>'+esc(L(s[0]))+'</dt><dd>'+esc(fmt(L(s[1])))+'</dd>'; }).join('');
+    var gal = p.imgs.length ? (
+      '<div class="gal-head"><h2>'+(lang==='en'?'Gallery':'Galeri')+'</h2><span>'+p.imgs.length+' '+(lang==='en'?'photos':'görsel')+'</span></div>'+
+      '<div class="gallery">'+p.imgs.map(function(g,k){ return '<button type="button" data-k="'+k+'"><img src="img/'+g[0]+'.webp" alt="'+esc(L(g[1]))+'" loading="lazy"></button>'; }).join('')+'</div>'
+    ) : (p.units ? '<div class="gal-head"><h2>'+(lang==='en'?'Apartments per project':'Projelere göre daire sayısı')+'</h2><span>9</span></div><div style="height:220px;padding-bottom:40px;margin-bottom:64px">'+unitsHTML(p.units)+'</div>'
+       : '<p class="pending" style="padding-bottom:72px">'+(lang==='en'?'Project photos will be added.':'Proje görselleri eklenecek.')+'</p>');
+    $('#detail').innerHTML =
+      '<div class="wrap"><a class="back" href="#projeler">← '+(lang==='en'?'All projects':'Tüm projeler')+'</a></div>'+
+      (hero ? '<div class="d-hero">'+hero+'<div class="d-title"><span class="status'+(p.live?' live':'')+'">'+esc(L(p.status))+'</span><h1>'+esc(L(p.name))+'</h1>'+(p.sub?'<div class="eyebrow">'+esc(p.sub)+'</div>':'')+'</div></div>'
+            : '<div class="wrap" style="padding-block:24px 8px;display:flex;flex-direction:column;gap:16px"><span class="status">'+esc(L(p.status))+'</span><h1 style="font-size:var(--s-xxl)">'+esc(L(p.name))+'</h1></div>')+
+      '<div class="wrap"><div class="d-body"><p class="lead">'+esc(L(p.lead))+'</p><div class="side"><dl class="specs">'+specs+'</dl>'+
+      (p.map?'<a class="textlink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+p.map+'">'+(lang==='en'?'View on map ↗':'Haritada görüntüle ↗')+'</a>':'')+
+      '</div></div>'+gal+
+      '<div class="nextp"><span class="eyebrow">'+(lang==='en'?'Next project':'Sonraki proje')+'</span><a href="#proje-'+nx.id+'"><span class="muted" style="font-size:var(--s-sm)">'+esc(L(nx.status))+'</span><b>'+esc(L(nx.name))+' →</b></a></div></div>';
+    $$('.gallery button',$('#detail')).forEach(function(b){ b.addEventListener('click',function(){ openLb(+b.dataset.k); }); });
+  }
+
+  /* ---------- Lightbox ---------- */
+  var lb=$('#lb'), lbImg=$('#lbImg'), lastFocus=null;
+  function showLb(){ var g=gallery[gi]; lbImg.src='img/'+g[0]+'.webp'; lbImg.alt=L(g[1]); $('#lbC').textContent=(gi+1)+' / '+gallery.length+' · '+L(g[1]); }
+  function openLb(k){ gi=k; lastFocus=document.activeElement; showLb(); lb.hidden=false; $('#lbX').focus(); }
+  function closeLb(){ lb.hidden=true; if(lastFocus) lastFocus.focus(); }
+  function step(d){ gi=(gi+d+gallery.length)%gallery.length; showLb(); }
+  $('#lbX').addEventListener('click',closeLb); $('#lbP').addEventListener('click',function(){step(-1)}); $('#lbN').addEventListener('click',function(){step(1)});
+  lb.addEventListener('click',function(e){ if(e.target===lb) closeLb(); });
+  addEventListener('keydown',function(e){ if(lb.hidden) return; if(e.key==='Escape') closeLb(); if(e.key==='ArrowRight') step(1); if(e.key==='ArrowLeft') step(-1); });
+
+  /* ---------- Router: #proje-<id> opens a detail page ---------- */
+  var home=$('#home'), detail=$('#detail'), current=null;
+  function route(){
+    var h=(location.hash||'').slice(1);
+    if(h.indexOf('proje-')===0 && byId(h.slice(6))){
+      current=byId(h.slice(6)); renderDetail(current);
+      home.hidden=true; detail.hidden=false; scrollTo(0,0);
+      document.title=L(current.name)+' · Tekin Group';
+    } else {
+      current=null;
+      var wasDetail=!detail.hidden;
+      detail.hidden=true; detail.innerHTML=''; home.hidden=false; document.title='Tekin Group';
+      sizeStrip();
+      if(h){ var t=document.getElementById(h); if(t) setTimeout(function(){ t.scrollIntoView({behavior: wasDetail?'auto':'smooth'}); }, wasDetail?30:0); }
+    }
+  }
+
+  /* ---------- i18n (add a language by adding one dictionary) ---------- */
   var EN = {
-    "nav.projects":"Projects","nav.process":"Process","nav.about":"Company","nav.contact":"Contact",
+    "nav.projects":"Projects","nav.eng":"Engineering","nav.about":"About","nav.contact":"Contact",
     "hero.parcelLabel":"Site",
     "hero.s0.eyebrow":"Mevlana Project · Under construction","hero.s0.title":"From plot to place to live.",
     "hero.s0.body":"Three residential blocks on 23,000 m² of construction area. Scroll to watch the project rise.",
@@ -475,132 +620,101 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
     "hero.s2.eyebrow":"Handover","hero.s2.title":"Buildings that add value to a neighbourhood.",
     "hero.s2.body":"A living environment completed with a landscaped courtyard, pool and sports areas.",
     "hero.st0":"01 · Plot","hero.st1":"02 · Structure","hero.st2":"03 · Project",
-    "fig.buildings":"completed and ongoing buildings","fig.units":"homes delivered","fig.area":"total construction area across four major projects","fig.floors":"floors: height of Gürsel Residence",
+    "fig.years":"years of experience","fig.units":"homes of accumulated expertise","fig.area":"total construction area across four major projects","fig.live":"Mevlana project, currently under construction",
     "proj.eyebrow":"Portfolio","proj.title":"Our projects","proj.intro":"Residential and education buildings in Istanbul. Every project holds its building permit and completion certificate.",
-    "st.live":"Under construction","st.done":"Completed · 2021","st.done19":"Completed · 2019","st.done17":"Completed · 2017","st.done24":"Completed · 2024","st.pre16":"Before 2016",
+    "grp.live":"Ongoing projects","grp.done":"Completed projects",
+    "st.live":"Under construction","sp.area":"Construction area","sp.blocks":"Blocks","sp.status":"Status","go.detail":"View project →","sp.map":"View on map ↗",
     "p.mevlana":"Three residential blocks arranged around a landscaped courtyard, swimming pool, playground and basketball court.",
-    "p.gursel":"A 19-storey residential tower. 152 apartments, delivered with landscaped gardens and shared amenities.",
-    "p.bil":"A fully equipped school campus next to Kağıthane metro station, with a sports court and inner courtyard.",
-    "p.panorama":"A 160-unit residential estate with curved blocks, an outdoor pool and landscaped common areas.",
-    "p.kucukkoy":"A residential project delivered as a joint venture of Hisar Tekin İnşaat and Tekin Alüminyum.",
-    "p.early":"Around 20 residential buildings, all with permits and completion certificates. Apartments per project:",
-    "n.bil":"Bil College","n.kucukkoy":"Küçükköy Project","n.early":"Early projects",
-    "sp.loc":"Location","sp.parcel":"Block / Parcel","sp.parcel1":"Parcel","sp.area":"Construction area","sp.blocks":"Blocks","sp.years":"Built","sp.year":"Delivered","sp.units":"Apartments","sp.floors":"Floors","sp.type":"Type","sp.edu":"Education building","sp.partner":"Partner","sp.map":"View on map ↗",
-    "proc.eyebrow":"From site to handover","proc.title":"From foundation to keys","proc.intro":"From excavation to interior details, we run every stage with our own teams.",
+    "eng.eyebrow":"Engineering","eng.title":"We bring construction and engineering together in one vision.",
+    "eng.intro":"Alongside our residential and commercial building projects, we provide engineering services that add technical value at every stage of a building.",
+    "svc.1":"Electrical and mechanical installation and permit projects","svc.1r":"Design · Permit · Installation","svc.1d":"Preparing electrical and mechanical installation projects for residential and commercial buildings, managing permit processes and carrying out the work on site.",
+    "svc.2":"Earthing measurement reports","svc.2r":"Regulation on Earthing in Electrical Installations","svc.2d":"Measurement of earthing and lightning protection systems, with periodic reports in line with the regulation.",
+    "svc.3":"Acoustic design","svc.3r":"Regulation on Protecting Buildings Against Noise","svc.3d":"Sound insulation calculations and acoustic design to protect buildings against noise.",
+    "svc.4d":"Calculating building energy performance and issuing the Energy Performance Certificate, rated from A to G.","svc.4":"Energy performance certificates",
+    "svc.5":"Transformer design and installation","svc.5d":"Design of transformer substations, follow-up of approvals, installation and commissioning.",
+    "proc.eyebrow":"From site to handover","proc.title":"From foundation to keys","proc.intro":"From excavation to interior details, every stage is carried out with design quality and engineering discipline.",
     "t.site":"Site setup","t.dig":"Shoring and excavation","t.rebar":"Foundation rebar","t.raft":"Raft foundation","t.lobby":"Lobby","t.living":"Living room","t.kitchen":"Kitchen","t.bath":"Bathroom","t.balcony":"Balcony","t.handover":"Handover",
+    "ab.eyebrow":"About us","ab.title":"Powered by Experience, Shaping the Future.",
+    "ab.lead":"With more than 20 years of experience and the knowledge gained from over 5,000 homes, we create solutions in construction and engineering that add value to the future.",
+    "ab.p1":"As TEKİN GROUP, we bring together contemporary architecture, engineering expertise and innovative technologies. Grounded in aesthetics, functionality and sustainability, we develop living spaces that meet the needs not only of today but of the future.",
+    "ab.quote":"We bring construction and engineering together in one vision.",
+    "ab.p2":"Alongside our residential and commercial building projects, we add technical value at every stage of a building with electrical and mechanical installation and permit projects, earthing measurement and reporting, acoustic design and energy performance certificate services.",
+    "ab.p3":"In every project we put design quality, engineering discipline and reliability first, and with our attention to detail we aim to create lasting, high-quality works.",
+    "ab.p4":"By combining the experience of our past with the technologies of the future, we continue to grow, to build and to create new value.",
+    "ab.motto":"Strong Engineering. Contemporary Architecture. Reliable Future.",
     "tl.eyebrow":"Milestones","tl.title":"Over the years","tl.y0":"Before 2016","tl.b0":"~20 residential buildings","tl.d0":"Projects of 10 to 48 apartments","tl.d1":"160 apartments · 30,000 m²","tl.d2":"Kağıthane · education building","tl.d3":"152 apartments · 19 floors","tl.d4":"12,700 m² · joint venture","tl.y5":"Today","tl.d5":"23,000 m² · under construction",
-    "ab.eyebrow":"Company","ab.title":"Measured, solid, on time.",
-    "ab.p1":"Hisar Tekin İnşaat is an Istanbul contractor building residential and education projects. Starting before 2016 with around twenty residential buildings, we went on to complete large-scale projects such as Hisar Panorama, Gürsel Residence and Bil College.",
-    "ab.p2":"We manage the whole process from land development to handover, and document every project with its permit and completion certificate.",
-    "ab.k1":"Residential","ab.k1d":"Estates and residences","ab.k2":"Education buildings","ab.k2d":"School and campus construction","ab.k3":"Documented delivery","ab.k3d":"Permit and completion certificate for every project","ab.k4":"Joint ventures","ab.k4d":"Joint projects with Tekin Alüminyum",
-    "ab.title2":"Legal name","ab.nace":"Activity","ab.naced":"41.00.01 · Residential building construction",
+    "n.bil":"Bil College","n.kucukkoy":"Küçükköy Project",
     "ct.eyebrow":"Contact","ct.title":"Let's talk about the next project.","ct.office":"Head office","ct.copy":"Copy address","ct.phone":"Phone · Email","ct.pending":"Phone and email details to be added.",
-    "_numfmt":"en"
+    "lb.close":"Close ✕"
   };
   var DICT = { en: EN };
   var originals = {};
   $$('[data-i18n]').forEach(function(el,i){ el.dataset.i18nIdx=i; originals[i]=el.innerHTML; });
-  var figs = [['81.700','81,700']];
+  var FIGS=[['5.000','5,000'],['81.700','81,700'],['23.000','23,000']];
   function setLang(l){
-    var d = DICT[l];
-    $$('[data-i18n]').forEach(function(el){
-      var k = el.getAttribute('data-i18n');
-      el.innerHTML = (d && d[k]) ? d[k] : originals[el.dataset.i18nIdx];
-    });
-    $$('.fig b').forEach(function(b){
-      figs.forEach(function(f){ b.innerHTML = b.innerHTML.replace(l==='en'?f[0]:f[1], l==='en'?f[1]:f[0]); });
-    });
-    document.documentElement.lang = l;
+    lang=l; var d=DICT[l];
+    $$('[data-i18n]').forEach(function(el){ var k=el.getAttribute('data-i18n'); el.innerHTML=(d&&d[k])?d[k]:originals[el.dataset.i18nIdx]; });
+    $$('.fig b').forEach(function(b){ FIGS.forEach(function(f){ b.innerHTML=b.innerHTML.replace(l==='en'?f[0]:f[1], l==='en'?f[1]:f[0]); }); });
+    document.documentElement.lang=l;
     $$('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang===l)); });
-    try{ localStorage.setItem('ht-lang', l); }catch(e){}
+    try{ localStorage.setItem('tg-lang', l); }catch(e){}
+    renderCards();
+    if(current){ renderDetail(current); document.title=L(current.name)+' · Tekin Group'; }
     requestAnimationFrame(sizeStrip);
   }
   $$('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
-  var saved = null; try{ saved = localStorage.getItem('ht-lang'); }catch(e){}
-  if(saved && saved!=='tr') setLang(saved); else document.documentElement.lang='tr';
-
-  /* ---------- Units chart (2016 öncesi) ---------- */
-  var units=[20,30,15,20,10,36,14,22,48], max=48, uc=$('#units');
-  units.forEach(function(n){ var d=document.createElement('div'); d.style.height=(n/max*100)+'%'; d.innerHTML='<span>'+n+'</span>'; uc.appendChild(d); });
-
-  /* ---------- Thumbnails ---------- */
-  $$('.dossier').forEach(function(card){
-    var main=$('.main img',card);
-    $$('.thumbs button',card).forEach(function(btn){
-      btn.addEventListener('click',function(){
-        var im=$('img',btn); main.style.opacity=0;
-        setTimeout(function(){ main.src=im.src; main.alt=im.alt; main.style.opacity=1; },180);
-        $$('.thumbs button',card).forEach(function(b){ b.setAttribute('aria-current', String(b===btn)); });
-      });
-    });
-  });
 
   /* ---------- Copy address ---------- */
   $$('[data-copy]').forEach(function(btn){
     btn.addEventListener('click',function(){
       var el=document.getElementById(btn.dataset.copy), txt=el.innerText.replace(/\s*\n\s*/g,', ');
-      var lbl=btn.innerHTML, en=document.documentElement.lang==='en';
+      var lbl=btn.innerHTML, en=lang==='en';
       function done(ok){ btn.textContent = ok ? (en?'Copied':'Kopyalandı') : (en?'Select and copy':'Seçip kopyalayın'); setTimeout(function(){btn.innerHTML=lbl},1800);
         if(!ok){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r);} }
       try{ navigator.clipboard.writeText(txt).then(function(){done(true)},function(){done(false)}); }catch(e){ done(false); }
     });
   });
 
-  /* ---------- Reveal (content visible at rest, small lift only) ---------- */
-  if(!reduce && 'IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.remove('pre'); io.unobserve(e.target);} }); },{rootMargin:'0px 0px -8% 0px'});
-    $$('.rv').forEach(function(el){ var r=el.getBoundingClientRect(); if(r.top>innerHeight){ el.classList.add('pre'); io.observe(el);} });
-  }
-
   /* ---------- Scroll engine ---------- */
   var top=$('#top'), film=$('#film'), filmSec=$('#hero'), caps=$$('.cap'), stages=$$('.stage');
-  var strip=$('#surec'), track=$('#track');
-  var cur=0, stageNow=0, mobile=matchMedia('(max-width:760px)');
-
-  function prog(sec){
-    var r=sec.getBoundingClientRect(), span=sec.offsetHeight-innerHeight;
-    return span>0 ? Math.min(1,Math.max(0,-r.top/span)) : 0;
-  }
-  function sizeStrip(){
-    if(mobile.matches){ strip.style.height=''; return; }
-    var extra=Math.max(0,track.scrollWidth-innerWidth);
-    strip.style.height=(innerHeight+extra)+'px';
-  }
-  sizeStrip(); addEventListener('resize',sizeStrip); addEventListener('load',sizeStrip);
-
-  // iOS needs a play() before seeking works on some versions
+  var strip=$('#surec'), track=$('#track'), cur=0, stageNow=0, mobile=matchMedia('(max-width:760px)');
+  function prog(sec){ var r=sec.getBoundingClientRect(), span=sec.offsetHeight-innerHeight; return span>0?Math.min(1,Math.max(0,-r.top/span)):0; }
+  function sizeStrip(){ if(mobile.matches||home.hidden){ strip.style.height=''; return; } strip.style.height=(innerHeight+Math.max(0,track.scrollWidth-innerWidth))+'px'; }
+  addEventListener('resize',sizeStrip); addEventListener('load',sizeStrip);
   function unlock(){ var p=film.play(); if(p&&p.then){ p.then(function(){film.pause()}).catch(function(){}); } removeEventListener('touchstart',unlock); }
   addEventListener('touchstart',unlock,{passive:true});
 
   function frame(){
-    top.classList.toggle('solid', scrollY>innerHeight*0.6);
-
-    var p=prog(filmSec);
-    if(film.duration && !reduce){
-      var target=p*(film.duration-0.06);
-      cur += (target-cur)*0.14;
-      if(Math.abs(film.currentTime-cur)>0.015 && !film.seeking){ try{ film.currentTime=cur; }catch(e){} }
-    }
-    var s = p<0.34?0:(p<0.68?1:2);
-    if(s!==stageNow){
-      caps.forEach(function(c){ if(+c.dataset.stage===s) c.removeAttribute('data-off'); else c.setAttribute('data-off',''); });
-      stages.forEach(function(st,i){ st.classList.toggle('on', i<=s); });
-      stageNow=s;
-    }
-    stages.forEach(function(st,i){ var local=Math.min(1,Math.max(0,(p-i/3)*3)); st.style.setProperty('--p',local.toFixed(3)); });
-
-    if(!mobile.matches){
-      var q=prog(strip), extra=Math.max(0,track.scrollWidth-innerWidth);
-      track.style.transform='translate3d('+(-q*extra).toFixed(1)+'px,0,0)';
-    }
-
-    if(!reduce){
-      $$('.dossier .main img').forEach(function(img){
-        var r=img.parentNode.getBoundingClientRect();
-        if(r.bottom>0 && r.top<innerHeight){ var c=(r.top+r.height/2-innerHeight/2)/innerHeight; img.style.setProperty('--py',(c*-28).toFixed(1)+'px'); }
-      });
+    top.classList.toggle('solid', scrollY>innerHeight*0.6 || !detail.hidden);
+    if(!home.hidden){
+      var p=prog(filmSec);
+      if(film.duration && !reduce){
+        cur += (p*(film.duration-0.06)-cur)*0.14;
+        if(Math.abs(film.currentTime-cur)>0.015 && !film.seeking){ try{ film.currentTime=cur; }catch(e){} }
+      }
+      var s=p<0.34?0:(p<0.68?1:2);
+      if(s!==stageNow){
+        caps.forEach(function(c){ if(+c.dataset.stage===s) c.removeAttribute('data-off'); else c.setAttribute('data-off',''); });
+        stages.forEach(function(st,i){ st.classList.toggle('on', i<=s); });
+        stageNow=s;
+      }
+      stages.forEach(function(st,i){ st.style.setProperty('--p',Math.min(1,Math.max(0,(p-i/3)*3)).toFixed(3)); });
+      if(!mobile.matches){ var q=prog(strip); track.style.transform='translate3d('+(-q*Math.max(0,track.scrollWidth-innerWidth)).toFixed(1)+'px,0,0)'; }
+      if(!reduce){
+        var fi=$('.feature .ph img'); if(fi){ var r=fi.parentNode.getBoundingClientRect(); if(r.bottom>0&&r.top<innerHeight){ fi.style.setProperty('--py',(((r.top+r.height/2-innerHeight/2)/innerHeight)*-28).toFixed(1)+'px'); } }
+      }
     }
     requestAnimationFrame(frame);
+  }
+
+  /* ---------- Boot ---------- */
+  renderCards();
+  var saved=null; try{ saved=localStorage.getItem('tg-lang'); }catch(e){}
+  if(saved==='en') setLang('en'); else document.documentElement.lang='tr';
+  addEventListener('hashchange',route); route(); sizeStrip();
+  if(!reduce && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.remove('pre'); io.unobserve(e.target);} }); },{rootMargin:'0px 0px -8% 0px'});
+    $$('#home .rv').forEach(function(el){ if(el.getBoundingClientRect().top>innerHeight){ el.classList.add('pre'); io.observe(el);} });
   }
   requestAnimationFrame(frame);
 })();
