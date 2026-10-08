@@ -37,8 +37,9 @@ h1,h2,h3{font-family:var(--f-display);font-stretch:125%;font-weight:700;line-hei
 .muted{color:var(--concrete)}
 
 /* Header */
-.top{position:fixed;inset:0 0 auto 0;z-index:30;padding-top:env(safe-area-inset-top,0px);transition:background .4s, border-color .4s;border-bottom:1px solid transparent}
-.top.solid{background:rgba(12,15,17,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
+.top{position:fixed;inset:0 0 auto 0;z-index:30;padding-top:env(safe-area-inset-top,0px);transition:background .4s, border-color .4s;background:linear-gradient(180deg,rgba(12,15,17,.88) 0%,rgba(12,15,17,.7) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top.solid{background:rgba(12,15,17,.94)}
+.top .nav a{color:#c9ccc8}
 .top-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:18px}
 .brand{display:flex;flex-direction:column;text-decoration:none;line-height:1}
 .brand b{font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:1.05rem;letter-spacing:.06em}
