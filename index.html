@@ -7,258 +7,310 @@
 <title>Tekin Group</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Playfair+Display:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
 <style>
-/* Layout: pinned scroll-scrubbed hero film → figures band → ongoing (feature) + completed (card grid) projects, each opening its own detail view (#proje-…) → engineering services → pinned horizontal build strip → about → timeline → contact. Single committed dark look. */
+/* Layout: pinned scroll-scrubbed hero film (navy) → figures band (navy) → services (light) → ongoing + completed projects (cream) → build strip (navy) → about (light) → timeline (navy) → contact (navy). Detail pages: navy hero, cream body. Navy + bronze-gold palette with a serif display. */
 :root{
-  --ink:#0c0f11;          /* page ground: night concrete */
-  --slab:#141a1d;         /* raised surfaces */
-  --chalk:#ecebe6;        /* primary text */
-  --concrete:#959c97;     /* secondary text */
-  --sand:#d4b68c;         /* accent: brass / facade sand */
-  --line:rgba(236,235,230,.13);
-  --shade:rgba(12,15,17,.72);
+  --navy:#0f1d29;         /* deep navy ground */
+  --navy-2:#162836;       /* raised navy */
+  --gold:#c39a5f;         /* bronze-gold accent */
+  --gold-2:#d8b47c;       /* light gold for text on navy */
+  --cream:#f6f2eb;        /* light section ground */
+  --paper:#ffffff;        /* cards on light */
+  /* role tokens (overridden per section by .light) */
+  --ink:var(--navy); --slab:var(--navy-2); --chalk:#f3f1ec; --concrete:#a5b0b8;
+  --line:rgba(243,241,236,.14); --shade:rgba(15,29,41,.72); --accent:var(--gold-2);
+  --f-serif:"Playfair Display",Georgia,"Times New Roman",serif;
   --f-display:"Archivo","Arial Narrow",Helvetica,Arial,sans-serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --gutter:clamp(16px,4vw,56px);
-  --s-xs:.78rem; --s-sm:.9rem; --s-md:1.05rem; --s-lg:1.35rem; --s-xl:clamp(1.9rem,3.6vw,3rem); --s-xxl:clamp(2.6rem,7.4vw,6.4rem);
+  --s-xs:.78rem; --s-sm:.9rem; --s-md:1.05rem; --s-lg:1.3rem; --s-xl:clamp(2rem,3.8vw,3.2rem); --s-xxl:clamp(2.7rem,6.6vw,5.6rem);
   color-scheme:dark;
 }
+.light{--ink:var(--cream); --slab:#ebe4d8; --chalk:#13222f; --concrete:#5a6670; --line:rgba(19,34,47,.13); --shade:rgba(255,255,255,.9); --accent:#a87b3d; background:var(--ink); color:var(--chalk); color-scheme:light}
+.white{--ink:var(--paper)}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth}
-body{background:var(--ink);color:var(--chalk);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--navy);color:var(--chalk);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
 img,video{max-width:100%;display:block}
-:focus-visible{outline:2px solid var(--sand);outline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .wrap{padding-inline:var(--gutter)}
-h1,h2,h3{font-family:var(--f-display);font-stretch:125%;font-weight:700;line-height:1.02;letter-spacing:-.01em;text-wrap:balance;margin:0}
-.eyebrow{font-family:var(--f-mono);font-size:var(--s-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--sand)}
+h1,h2{font-family:var(--f-serif);font-weight:600;line-height:1.06;letter-spacing:-.005em;text-wrap:balance;margin:0}
+h3,h4{font-family:var(--f-body);font-weight:600;line-height:1.25;text-wrap:balance;margin:0}
+h1 em,h2 em{font-style:normal;color:var(--gold)}
+.eyebrow{font-family:var(--f-body);font-weight:500;font-size:var(--s-xs);letter-spacing:.24em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:12px}
+.eyebrow.rule::before{content:"";width:36px;height:1px;background:currentColor}
 .muted{color:var(--concrete)}
+.rule-under{display:block;width:64px;height:2px;background:var(--gold);margin-top:22px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font:600 .78rem var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:15px 22px;border:1px solid var(--gold);transition:background .2s,color .2s;align-self:flex-start;cursor:pointer}
+.btn:hover{background:var(--gold-2);border-color:var(--gold-2)}
+.btn.ghost{background:transparent;color:var(--chalk);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--accent)}
+.textlink{align-self:flex-start;font-size:var(--s-sm);color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
 
 /* Header */
-.top{position:fixed;inset:0 0 auto 0;z-index:30;padding-top:env(safe-area-inset-top,0px);transition:background .4s;background:linear-gradient(180deg,rgba(12,15,17,.88) 0%,rgba(12,15,17,.7) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.top.solid{background:rgba(12,15,17,.94)}
-.top-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:18px}
-.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;line-height:1}
-.brand b{font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:1.2rem;letter-spacing:.08em}
-.brand small{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.34em;color:var(--sand)}
-.nav{display:flex;align-items:center;gap:28px}
-.nav a{text-decoration:none;font-size:var(--s-sm);color:#c9ccc8;transition:color .2s}
-.nav a:hover{color:var(--chalk)}
-.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-.lang button{background:none;border:0;color:var(--concrete);font:500 .72rem var(--f-mono);letter-spacing:.1em;padding:6px 11px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--chalk);color:var(--ink)}
-@media (max-width:900px){.nav a{display:none}}
+.top{position:fixed;inset:0 0 auto 0;z-index:30;padding-top:env(safe-area-inset-top,0px);transition:background .4s;background:linear-gradient(180deg,rgba(15,29,41,.9) 0%,rgba(15,29,41,.72) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(243,241,236,.1)}
+.top.solid{background:rgba(15,29,41,.96)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:14px}
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none;line-height:1}
+.brand b{font-family:var(--f-display);font-stretch:112%;font-weight:800;font-size:1.45rem;letter-spacing:.04em;color:#fff}
+.brand span{font-family:var(--f-display);font-stretch:112%;font-weight:300;font-size:1.45rem;letter-spacing:.04em;color:var(--gold-2)}
+.nav{display:flex;align-items:center;gap:clamp(16px,2.2vw,30px)}
+.nav a:not(.btn){text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#d5dbe0;padding-block:8px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav a:not(.btn):hover,.nav a.on{color:#fff;border-color:var(--gold)}
+.nav .btn{padding:11px 16px}
+.lang{display:flex;border:1px solid rgba(243,241,236,.2);overflow:hidden}
+.lang button{background:none;border:0;color:#a5b0b8;font:600 .7rem var(--f-body);letter-spacing:.1em;padding:7px 10px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--gold);color:var(--navy)}
+@media (max-width:1080px){.nav a:not(.btn){display:none}}
+@media (max-width:520px){.nav .btn{display:none}}
 
 /* Hero film */
 .film{position:relative;height:440vh}
-.film-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.film-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--navy)}
 .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
-.film-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,15,17,.86) 0%,rgba(12,15,17,.45) 42%,rgba(12,15,17,0) 70%),linear-gradient(0deg,rgba(12,15,17,.9) 0%,rgba(12,15,17,0) 32%)}
-.cap{position:absolute;left:var(--gutter);bottom:clamp(120px,20vh,200px);max-width:min(640px,calc(100% - 2*var(--gutter)));transition:opacity .6s ease, transform .6s ease}
+.film-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,29,41,.94) 0%,rgba(15,29,41,.6) 38%,rgba(15,29,41,0) 68%),linear-gradient(0deg,rgba(15,29,41,.85) 0%,rgba(15,29,41,0) 30%)}
+.cap{position:absolute;left:var(--gutter);bottom:clamp(120px,19vh,190px);max-width:min(620px,calc(100% - 2*var(--gutter)));display:flex;flex-direction:column;gap:20px;transition:opacity .6s ease, transform .6s ease}
 .cap[data-off]{opacity:0;transform:translateY(18px);pointer-events:none}
-.cap h1,.cap h2{font-size:var(--s-xxl);margin:14px 0 18px}
-.cap p{font-size:var(--s-md);color:#d7d6d0;max-width:46ch;margin:0}
-.stages{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(28px,5vh,48px);display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.stage{font-family:var(--f-mono);font-size:var(--s-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--concrete);display:grid;gap:10px}
-.stage i{display:block;height:2px;background:var(--line);position:relative;overflow:hidden}
-.stage i::after{content:"";position:absolute;inset:0;background:var(--sand);transform-origin:left;transform:scaleX(var(--p,0))}
-.stage.on{color:var(--chalk)}
-.parcel{position:absolute;right:var(--gutter);top:calc(env(safe-area-inset-top,0px) + 96px);font-family:var(--f-mono);font-size:var(--s-xs);color:var(--chalk);background:var(--shade);border:1px solid var(--line);padding:10px 14px;display:grid;gap:2px;text-align:right}
-.parcel span{color:var(--concrete)}
-@media (max-width:700px){.parcel{display:none}.film-veil{background:linear-gradient(0deg,rgba(12,15,17,.92) 0%,rgba(12,15,17,.55) 55%,rgba(12,15,17,.2) 100%)}}
+.cap .eyebrow{color:#e7e2d8;letter-spacing:.32em;line-height:1.7}
+.cap h1,.cap h2{font-size:var(--s-xxl);color:#fff}
+.cap p{font-size:var(--s-md);color:#dfe3e6;max-width:44ch;margin:0}
+.stages{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(28px,5vh,48px);display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:760px}
+.stage{font-size:var(--s-xs);font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#93a0aa;display:grid;gap:10px}
+.stage i{display:block;height:2px;background:rgba(243,241,236,.18);position:relative;overflow:hidden}
+.stage i::after{content:"";position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(var(--p,0))}
+.stage.on{color:#fff}
+.parcel{position:absolute;right:var(--gutter);top:calc(env(safe-area-inset-top,0px) + 100px);font-family:var(--f-mono);font-size:var(--s-xs);color:#fff;background:rgba(15,29,41,.78);border-left:2px solid var(--gold);padding:10px 14px;display:grid;gap:2px;text-align:right}
+.parcel span{color:var(--gold-2)}
+@media (max-width:700px){.parcel{display:none}.film-veil{background:linear-gradient(0deg,rgba(15,29,41,.95) 0%,rgba(15,29,41,.6) 55%,rgba(15,29,41,.25) 100%)}}
 
 /* Figures band */
-.band{border-block:1px solid var(--line);background:var(--slab)}
+.band{background:var(--navy-2);border-top:2px solid var(--gold)}
 .band-in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
-.fig{padding:clamp(24px,4vw,44px) 16px clamp(24px,4vw,44px) clamp(0px,2vw,28px);border-right:1px solid var(--line)}
-.fig:first-child{padding-left:0}
+.fig{display:flex;align-items:center;gap:16px;padding:clamp(22px,3vw,34px) 16px;border-right:1px solid var(--line)}
 .fig:last-child{border-right:0}
-.fig b{display:block;font-family:var(--f-display);font-stretch:110%;font-weight:600;font-size:clamp(2rem,4.2vw,3.4rem);line-height:1;font-variant-numeric:tabular-nums}
-.fig b sup{font-size:.4em;color:var(--sand);margin-left:4px;vertical-align:top}
-.fig span{display:block;margin-top:10px;font-size:var(--s-sm);color:var(--concrete);max-width:24ch}
-@media (max-width:760px){.band-in{grid-template-columns:1fr 1fr}.fig,.fig:first-child{padding-left:0}.fig:nth-child(2){border-right:0}.fig:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.fig svg{flex:0 0 auto;width:42px;height:42px;color:var(--gold)}
+.fig b{display:block;font-family:var(--f-display);font-stretch:105%;font-weight:700;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.fig b sup{font-size:.5em;color:var(--gold-2);margin-left:3px;vertical-align:top}
+.fig span{display:block;margin-top:6px;font-size:var(--s-sm);color:#b9c3ca;line-height:1.35}
+@media (max-width:900px){.band-in{grid-template-columns:1fr 1fr}.fig:nth-child(2){border-right:0}.fig:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:420px){.fig svg{display:none}}
 
 /* Sections */
-.sec{padding-block:clamp(80px,12vw,160px)}
-.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:clamp(40px,6vw,72px)}
-.sec-head h2{font-size:var(--s-xl)}
+.sec{padding-block:clamp(72px,10vw,140px)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:clamp(40px,5vw,64px)}
+.sec-head h2{font-size:var(--s-xl);margin-top:14px}
 .sec-head p{margin:0;color:var(--concrete);max-width:52ch;justify-self:end}
 @media (max-width:760px){.sec-head{grid-template-columns:1fr}.sec-head p{justify-self:start}}
-.group-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:28px}
-.group-title h3{font-size:clamp(1.25rem,2vw,1.6rem);font-stretch:110%}
-.group-title span{font-family:var(--f-mono);font-size:var(--s-xs);color:var(--concrete);letter-spacing:.1em}
-.group + .group{margin-top:clamp(64px,9vw,120px)}
+.group-title{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:28px}
+.group-title h3{font-family:var(--f-serif);font-weight:600;font-size:clamp(1.35rem,2.2vw,1.75rem)}
+.group-title span{font-size:var(--s-xs);font-weight:600;letter-spacing:.14em;color:var(--accent);background:rgba(195,154,95,.14);padding:4px 10px}
+.group + .group{margin-top:clamp(64px,8vw,110px)}
 
 /* Status chip */
-.status{align-self:flex-start;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--line);color:var(--concrete);display:inline-flex;gap:8px;align-items:center;background:var(--shade)}
-.status.live{color:var(--sand);border-color:rgba(212,182,140,.45)}
-.status.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sand);animation:pulse 2s infinite}
+.status{align-self:flex-start;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:6px 11px;color:var(--chalk);display:inline-flex;gap:8px;align-items:center;background:var(--shade);border:1px solid var(--line)}
+.status.live{color:var(--navy);background:var(--gold);border-color:var(--gold)}
+.status.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--navy);animation:pulse 2s infinite}
 @keyframes pulse{50%{opacity:.25}}
 
 /* Spec list */
 .specs{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);border-top:1px solid var(--line)}
-.specs dt,.specs dd{padding:11px 0;border-bottom:1px solid var(--line);margin:0}
-.specs dt{font-family:var(--f-mono);font-size:var(--s-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--concrete);padding-right:24px}
-.specs dd{font-variant-numeric:tabular-nums;text-align:right}
+.specs dt,.specs dd{padding:12px 0;border-bottom:1px solid var(--line);margin:0}
+.specs dt{font-size:var(--s-xs);font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--concrete);padding-right:24px}
+.specs dd{font-weight:500;font-variant-numeric:tabular-nums;text-align:right}
 
-.cta{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:500;color:var(--ink);background:var(--sand);padding:12px 18px;transition:background .2s}
-.cta:hover{background:var(--chalk)}
-.textlink{align-self:flex-start;font-size:var(--s-sm);color:var(--sand);text-decoration:none;border-bottom:1px solid rgba(212,182,140,.4);padding-bottom:2px}
-.textlink:hover{border-color:var(--sand)}
+/* Services (light) */
+.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,22px)}
+.svc{background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px;padding:clamp(22px,2.4vw,30px);position:relative;transition:box-shadow .3s,transform .3s;text-decoration:none;min-width:0}
+.svc::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.svc:hover{box-shadow:0 18px 40px -22px rgba(15,29,41,.35);transform:translateY(-3px)}
+.svc:hover::after{transform:scaleX(1)}
+.ico{width:52px;height:52px;display:grid;place-items:center;background:var(--navy);color:var(--gold-2)}
+.ico svg{width:26px;height:26px}
+.svc h3{font-size:1.12rem;color:var(--chalk)}
+.svc p{margin:0;color:var(--concrete);font-size:var(--s-sm)}
+.svc .ref{margin-top:auto;font-size:.72rem;font-weight:500;letter-spacing:.04em;color:var(--accent);display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:1px solid var(--line);padding-top:12px}
+.svc .ref i{font-style:normal;font-size:1rem;color:var(--gold)}
+.ekb{display:flex;gap:3px}
+.ekb span{font-size:.66rem;font-weight:700;color:#0c0f11;padding:2px 0;width:26px;text-align:center}
+@media (max-width:960px){.svc-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.svc-grid{grid-template-columns:1fr}}
 
 /* Ongoing feature */
-.feature{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center}
-.feature .ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--slab);display:block}
-.feature .ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.06) translateY(var(--py,0px));transition:transform .6s}
+.feature{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);background:var(--paper);border:1px solid var(--line)}
+.feature .ph{position:relative;min-height:340px;overflow:hidden;background:var(--slab);display:block}
+.feature .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06) translateY(var(--py,0px));transition:transform .6s}
 .feature .ph:hover img{transform:scale(1.09) translateY(var(--py,0px))}
-.feature .ph .status{position:absolute;left:16px;top:16px}
-.sheet{min-width:0;display:flex;flex-direction:column;gap:20px}
-.sheet h3{font-size:clamp(1.7rem,3vw,2.5rem)}
+.feature .ph .status{position:absolute;left:18px;top:18px}
+.sheet{min-width:0;display:flex;flex-direction:column;gap:18px;padding:clamp(24px,3.4vw,48px)}
+.sheet h3{font-family:var(--f-serif);font-weight:600;font-size:clamp(1.9rem,3vw,2.6rem);line-height:1.05}
 .sheet > p{margin:0;color:var(--concrete);max-width:48ch}
-@media (max-width:860px){.feature{grid-template-columns:1fr}}
+@media (max-width:860px){.feature{grid-template-columns:1fr}.feature .ph{min-height:0;aspect-ratio:16/10}}
 
 /* Completed cards */
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,28px)}
-.card{display:flex;flex-direction:column;gap:14px;text-decoration:none;min-width:0}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,22px)}
+.card{display:flex;flex-direction:column;text-decoration:none;min-width:0;background:var(--paper);border:1px solid var(--line);transition:box-shadow .3s,transform .3s}
+.card:hover{box-shadow:0 18px 40px -22px rgba(15,29,41,.35);transform:translateY(-3px)}
 .card .ph{aspect-ratio:4/3;overflow:hidden;background:var(--slab);position:relative}
 .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .card:hover .ph img{transform:scale(1.05)}
-.card .ph.type{display:flex;flex-direction:column;justify-content:flex-end;padding:22px;border:1px solid var(--line);background:linear-gradient(160deg,var(--slab),var(--ink))}
-.card .ph.type b{font-family:var(--f-display);font-stretch:110%;font-weight:600;font-size:clamp(2.2rem,4vw,3.2rem);line-height:1}
-.card .ph.type b sup{font-size:.4em;color:var(--sand);margin-left:4px;vertical-align:top}
-.card .ph.type span{color:var(--concrete);font-size:var(--s-sm);margin-top:8px}
-.card .meta{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:var(--s-xs);color:var(--concrete);letter-spacing:.06em}
-.card h4{margin:0;font-family:var(--f-display);font-stretch:110%;font-weight:600;font-size:1.3rem;line-height:1.15}
-.card p{margin:0;color:var(--concrete);font-size:var(--s-sm)}
-.card .go{font-size:var(--s-sm);color:var(--sand)}
+.card .ph .yr{position:absolute;left:14px;top:14px;background:var(--navy);color:var(--gold-2);font-size:.72rem;font-weight:600;letter-spacing:.1em;padding:5px 10px}
+.card .ph.type{display:flex;flex-direction:column;justify-content:flex-end;padding:22px;background:linear-gradient(150deg,var(--navy-2),var(--navy));color:#fff}
+.card .ph.type b{font-family:var(--f-display);font-weight:700;font-size:clamp(2.2rem,4vw,3.2rem);line-height:1}
+.card .ph.type b sup{font-size:.4em;color:var(--gold-2);margin-left:4px;vertical-align:top}
+.card .ph.type span.lbl{color:#b9c3ca;font-size:var(--s-sm);margin-top:8px}
+.card .body{display:flex;flex-direction:column;gap:8px;padding:18px 20px 20px}
+.card .meta{font-size:var(--s-xs);color:var(--concrete);letter-spacing:.04em}
+.card h4{font-family:var(--f-serif);font-weight:600;font-size:1.35rem;line-height:1.15}
+.card .go{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:12px;border-top:1px solid var(--line);font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 .units{display:flex;align-items:flex-end;gap:6px;height:100%;padding-top:26px}
-.units div{flex:1;background:linear-gradient(180deg,var(--sand),rgba(212,182,140,.2));position:relative;min-width:0}
-.units div span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:.66rem;color:var(--concrete)}
+.units div{flex:1;background:linear-gradient(180deg,var(--gold-2),rgba(195,154,95,.25));position:relative;min-width:0}
+.units div span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:.66rem;color:#b9c3ca}
 @media (max-width:960px){.cards{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.cards{grid-template-columns:1fr}}
 
-/* Engineering */
-.eng{background:var(--slab);border-block:1px solid var(--line)}
-.eng-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:clamp(32px,6vw,96px)}
-.eng-intro{display:flex;flex-direction:column;gap:20px;align-self:start;position:sticky;top:120px}
-.eng-intro h2{font-size:var(--s-xl)}
-.eng-intro p{margin:0;color:#cfcec8;max-width:46ch}
-.svc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.svc li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 24px;padding:26px 0;border-bottom:1px solid var(--line)}
-.svc h3{font-size:clamp(1.15rem,1.8vw,1.45rem);font-stretch:105%;font-weight:600;line-height:1.2}
-.svc p{grid-column:1;margin:0;color:var(--concrete);max-width:58ch}
-.svc .ref{grid-column:2;grid-row:1 / span 2;align-self:start;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;color:var(--sand);border:1px solid rgba(212,182,140,.35);padding:5px 9px;max-width:22ch;text-align:right;line-height:1.4}
-.ekb{grid-column:1;display:flex;gap:3px;margin-top:6px}
-.ekb span{font-family:var(--f-mono);font-size:.68rem;font-weight:500;color:#0c0f11;padding:3px 0;width:30px;text-align:center}
-@media (max-width:860px){.eng-grid{grid-template-columns:1fr}.eng-intro{position:static}}
-@media (max-width:560px){.svc li{grid-template-columns:1fr}.svc .ref{grid-column:1;grid-row:auto;text-align:left;justify-self:start}}
-
-/* Horizontal build strip */
-.strip{position:relative}
+/* Horizontal build strip (navy) */
+.strip{position:relative;background:var(--navy)}
 .strip-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:28px}
 .strip-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
-.strip-head h2{font-size:var(--s-xl)}
+.strip-head h2{font-size:var(--s-xl);margin-top:14px}
 .track{display:flex;gap:16px;will-change:transform;padding-inline:var(--gutter)}
-.tile{flex:0 0 auto;width:clamp(240px,30vw,420px);margin:0}
+.tile{flex:0 0 auto;width:clamp(240px,28vw,400px);margin:0}
 .tile img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--slab)}
-.tile figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:var(--s-sm)}
-.tile figcaption span{font-family:var(--f-mono);font-size:var(--s-xs);color:var(--sand)}
-.tile.wide{width:clamp(320px,46vw,640px)}
+.tile figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:12px;font-size:var(--s-sm)}
+.tile figcaption span{font-family:var(--f-mono);font-size:var(--s-xs);color:var(--gold-2)}
+.tile.wide{width:clamp(320px,44vw,620px)}
 .tile.wide img{aspect-ratio:4/3}
 @media (max-width:760px){.strip{height:auto!important}.strip-stick{position:static;height:auto;padding-block:80px}.track{overflow-x:auto;transform:none!important;scroll-snap-type:x mandatory}.tile{scroll-snap-align:start;width:78vw}.tile.wide{width:88vw}}
 
-/* About */
-.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(32px,6vw,96px);align-items:start}
-.about-img{aspect-ratio:4/5;overflow:hidden;position:sticky;top:110px}
+/* About (light) */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(32px,5vw,80px);align-items:start}
+.about-img{position:sticky;top:110px;aspect-ratio:4/5;overflow:hidden}
 .about-img img{width:100%;height:100%;object-fit:cover}
+.about-img .badge{position:absolute;right:0;bottom:0;background:var(--navy);color:#fff;padding:22px 26px;display:grid;gap:4px}
+.about-img .badge b{font-family:var(--f-display);font-weight:700;font-size:2.4rem;line-height:1;color:var(--gold-2)}
+.about-img .badge span{font-size:var(--s-sm);color:#b9c3ca}
 .about-copy{display:flex;flex-direction:column;gap:22px}
 .about-copy h2{font-size:var(--s-xl)}
-.about-copy .lead{font-size:var(--s-lg);line-height:1.45;color:var(--chalk);margin:0;max-width:40ch}
-.about-copy p{margin:0;color:#cfcec8;max-width:60ch}
-.about-copy blockquote{margin:8px 0;padding:6px 0 6px 22px;border-left:2px solid var(--sand);font-family:var(--f-display);font-stretch:110%;font-weight:500;font-size:clamp(1.3rem,2.2vw,1.75rem);line-height:1.25;text-wrap:balance}
-.motto{font-family:var(--f-display);font-stretch:125%;font-weight:700;font-size:clamp(1.1rem,1.8vw,1.4rem);letter-spacing:.01em;border-top:1px solid var(--line);padding-top:22px;margin-top:6px;display:grid;gap:6px}
-.motto small{font-family:var(--f-mono);font-weight:400;font-size:var(--s-xs);letter-spacing:.34em;color:var(--sand)}
-@media (max-width:860px){.about{grid-template-columns:1fr}.about-img{position:static;aspect-ratio:16/10}}
+.about-copy .lead{font-size:var(--s-lg);line-height:1.5;color:var(--chalk);margin:0;max-width:44ch}
+.about-copy p{margin:0;color:var(--concrete);max-width:62ch}
+.about-copy blockquote{margin:6px 0;padding:22px 26px;background:var(--navy);color:#fff;font-family:var(--f-serif);font-weight:500;font-size:clamp(1.25rem,2vw,1.6rem);line-height:1.3;border-left:3px solid var(--gold);text-wrap:balance}
+.values{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.values li{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);font-weight:500}
+.values svg{width:26px;height:26px;color:var(--gold);flex:0 0 auto}
+.motto{display:grid;gap:6px;margin-top:6px}
+.motto small{font-size:var(--s-xs);font-weight:600;letter-spacing:.3em;color:var(--accent)}
+.motto span{font-family:var(--f-serif);font-weight:600;font-size:clamp(1.2rem,1.9vw,1.5rem)}
+@media (max-width:860px){.about{grid-template-columns:1fr}.about-img{position:relative;top:auto;aspect-ratio:16/10}}
+@media (max-width:520px){.values{grid-template-columns:1fr}}
 
-/* Timeline */
+/* Timeline (navy) */
+.tl-sec{background:var(--navy-2)}
 .timeline{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line)}
-.timeline li{padding:24px 16px 0 0;position:relative;min-width:0}
-.timeline li::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;background:var(--ink);border:1px solid var(--sand);border-radius:50%}
-.timeline li.now::before{background:var(--sand)}
-.timeline time{display:block;font-family:var(--f-mono);font-size:var(--s-sm);color:var(--sand);margin-bottom:8px}
-.timeline b{display:block;font-weight:500;margin-bottom:4px}
+.timeline li{padding:26px 16px 0 0;position:relative;min-width:0}
+.timeline li::before{content:"";position:absolute;top:-6px;left:0;width:11px;height:11px;background:var(--navy-2);border:2px solid var(--gold);border-radius:50%}
+.timeline li.now::before{background:var(--gold)}
+.timeline time{display:block;font-family:var(--f-display);font-weight:700;font-size:1.05rem;color:var(--gold-2);margin-bottom:8px}
+.timeline b{display:block;font-weight:600;margin-bottom:4px}
 .timeline span{font-size:var(--s-sm);color:var(--concrete)}
-@media (max-width:900px){.timeline{grid-template-columns:1fr;border-top:0;border-left:1px solid var(--line);gap:28px}.timeline li{padding:0 0 0 24px}.timeline li::before{top:6px;left:-5px}}
+@media (max-width:900px){.timeline{grid-template-columns:1fr;border-top:0;border-left:1px solid var(--line);gap:28px}.timeline li{padding:0 0 0 24px}.timeline li::before{top:6px;left:-6px}}
 
-/* Contact */
-.contact{background:var(--slab);border-top:1px solid var(--line)}
+/* Contact (navy) */
+.contact{background:var(--navy);border-top:2px solid var(--gold)}
 .contact-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(32px,6vw,96px)}
-.contact h2{font-size:var(--s-xxl)}
+.contact h2{font-size:var(--s-xxl);margin-top:14px}
 .addr{display:flex;flex-direction:column;gap:22px}
-.addr > div{border-top:1px solid var(--line);padding-top:14px}
-.addr address{font-style:normal;font-size:var(--s-lg);line-height:1.4}
-.copy{background:none;border:1px solid var(--line);color:var(--chalk);font:500 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;cursor:pointer;margin:12px 8px 0 0}
-.copy:hover{border-color:var(--sand)}
-.pending{font-family:var(--f-mono);font-size:var(--s-sm);color:var(--concrete);margin:6px 0 0}
+.addr > div{border-top:1px solid var(--line);padding-top:16px}
+.addr address{font-style:normal;font-size:var(--s-lg);line-height:1.45;margin-top:8px}
+.copy{background:none;border:1px solid var(--line);color:var(--chalk);font:600 .7rem var(--f-body);letter-spacing:.12em;text-transform:uppercase;padding:9px 13px;cursor:pointer;margin:14px 10px 0 0}
+.copy:hover{border-color:var(--gold);color:var(--gold-2)}
+.phone{display:block;font-family:var(--f-display);font-weight:700;font-size:clamp(1.6rem,3vw,2.2rem);color:#fff;text-decoration:none;margin-top:8px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.phone:hover{color:var(--gold-2)}
+.pending{font-size:var(--s-sm);color:var(--concrete);margin:8px 0 0}
 @media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
-footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:var(--s-xs);color:var(--concrete);font-family:var(--f-mono)}
+footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:var(--s-xs);color:var(--concrete)}
 
 /* Project detail view */
-.detail{padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
-.d-hero{position:relative;height:min(78vh,760px);min-height:420px;overflow:hidden}
+.detail{padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+.d-hero{position:relative;height:min(76vh,740px);min-height:420px;overflow:hidden;background:var(--navy)}
 .d-hero img,.d-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
-.d-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,15,17,.95) 0%,rgba(12,15,17,.35) 45%,rgba(12,15,17,.1) 100%)}
-.d-title{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(28px,5vw,56px);z-index:1;display:flex;flex-direction:column;gap:16px}
+.d-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,29,41,.95) 0%,rgba(15,29,41,.4) 45%,rgba(15,29,41,.1) 100%)}
+.d-title{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(28px,5vw,56px);z-index:1;display:flex;flex-direction:column;gap:16px;color:#fff}
 .d-title h1{font-size:var(--s-xxl)}
-.back{display:inline-flex;gap:8px;align-items:center;font-family:var(--f-mono);font-size:var(--s-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--chalk);text-decoration:none;padding-block:22px}
-.back:hover{color:var(--sand)}
-.d-body{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);padding-block:clamp(32px,5vw,64px)}
-.d-body .lead{font-size:var(--s-lg);line-height:1.5;margin:0;max-width:52ch}
-.d-body .side{display:flex;flex-direction:column;gap:20px}
-.gal-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
-.gal-head h2{font-size:clamp(1.3rem,2.2vw,1.7rem);font-stretch:110%}
-.gal-head span{font-family:var(--f-mono);font-size:var(--s-xs);color:var(--concrete)}
-.gallery{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-flow:dense;gap:10px;padding-bottom:clamp(64px,8vw,120px)}
+.d-title .eyebrow{color:var(--gold-2)}
+.d-plain{background:var(--navy);padding-block:28px 48px;display:flex;flex-direction:column;gap:16px}
+.d-plain h1{font-size:var(--s-xxl)}
+.backbar{background:var(--navy)}
+.back{display:inline-flex;gap:8px;align-items:center;font-size:var(--s-xs);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-decoration:none;padding-block:20px}
+.back:hover{color:var(--gold-2)}
+.d-body{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);padding-block:clamp(36px,5vw,64px)}
+.d-body .lead{font-size:var(--s-lg);line-height:1.55;margin:0;max-width:52ch}
+.d-body .side{display:flex;flex-direction:column;gap:20px;background:var(--paper);border:1px solid var(--line);padding:24px}
+.gal-head{display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.gal-head h2{font-size:clamp(1.5rem,2.4vw,1.9rem)}
+.gal-head span{font-size:var(--s-xs);font-weight:600;letter-spacing:.12em;color:var(--accent);background:rgba(195,154,95,.14);padding:4px 10px}
+.gallery{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-flow:dense;gap:10px;padding-bottom:clamp(64px,8vw,110px)}
 .gallery button{padding:0;border:0;background:var(--slab);cursor:zoom-in;overflow:hidden;grid-column:span 4;aspect-ratio:4/3}
 .gallery button:nth-child(5n+1){grid-column:span 8;grid-row:span 2;aspect-ratio:auto}
 .gallery button img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .gallery button:hover img{transform:scale(1.04)}
 .nextp{display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid var(--line);padding-block:32px 72px}
-.nextp a{text-decoration:none;display:grid;gap:6px}
-.nextp a b{font-family:var(--f-display);font-stretch:110%;font-weight:600;font-size:clamp(1.3rem,2.4vw,2rem)}
-.nextp a:hover b{color:var(--sand)}
+.nextp a{text-decoration:none;display:grid;gap:6px;text-align:right}
+.nextp a b{font-family:var(--f-serif);font-weight:600;font-size:clamp(1.4rem,2.6vw,2.1rem)}
+.nextp a:hover b{color:var(--accent)}
 @media (max-width:860px){.d-body{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr}.gallery button,.gallery button:nth-child(5n+1){grid-column:span 1;grid-row:auto;aspect-ratio:4/3}.gallery button:nth-child(3n+1){grid-column:span 2;aspect-ratio:16/10}}
 
 /* Lightbox */
-.lb{position:fixed;inset:0;z-index:50;background:rgba(8,10,11,.96);display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 56px) 16px calc(env(safe-area-inset-bottom,0px) + 56px)}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(10,18,26,.96);display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 56px) 16px calc(env(safe-area-inset-bottom,0px) + 56px)}
 .lb img{max-height:100%;max-width:100%;object-fit:contain}
-.lb button{position:absolute;background:var(--shade);border:1px solid var(--line);color:var(--chalk);font:500 .8rem var(--f-mono);letter-spacing:.08em;padding:10px 14px;cursor:pointer}
-.lb button:hover{border-color:var(--sand)}
+.lb button{position:absolute;background:rgba(15,29,41,.8);border:1px solid rgba(243,241,236,.2);color:#fff;font:600 .78rem var(--f-body);letter-spacing:.08em;padding:10px 14px;cursor:pointer}
+.lb button:hover{border-color:var(--gold)}
 .lb .x{top:calc(env(safe-area-inset-top,0px) + 12px);right:16px}
 .lb .pv{left:16px;top:50%;transform:translateY(-50%)}
 .lb .nx{right:16px;top:50%;transform:translateY(-50%)}
-.lb .ct{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:var(--s-xs);color:var(--concrete)}
+.lb .ct{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);left:50%;transform:translateX(-50%);font-size:var(--s-xs);color:#a5b0b8}
 
 /* Reveal: readable at rest, small lift only */
 .rv{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .rv.pre{transform:translateY(28px)}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv,.rv.pre{transform:none;transition:none}.cap{transition:none}.status.live::before{animation:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv,.rv.pre{transform:none;transition:none}.cap{transition:none}.status.live::before{animation:none}.svc,.card{transition:none}}
 </style>
 </head>
 <body>
 
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l8-3v19M12 21V9l8 3v9M2 21h20M7 8h2M7 12h2M7 16h2M15 14h2M15 17h2"/></symbol>
+    <symbol id="i-house" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7M5 10v11h14V10M10 21v-6h4v6"/></symbol>
+    <symbol id="i-area" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16"/><path d="M4 9h3M4 14h3M9 4v3M14 4v3"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 2 6 5"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+    <symbol id="i-ground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9M5 12h14M7.5 16h9M10 20h4"/></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20c0-9 6-15 15-15 0 9-5.5 15-14 15M5 20l8-8"/></symbol>
+    <symbol id="i-trafo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/></symbol>
+    <symbol id="i-gem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l3 6-9 12L3 9zM3 9h18M9 3l3 6 3-6M12 21L9 9M12 21l3-12"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9L7 7M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l4 4v16H6zM14 2v5h5M9 14l2 2 4-4"/></symbol>
+  </defs>
+</svg>
+
 <header class="top" id="top">
   <div class="wrap top-in">
-    <a class="brand" href="#hero" aria-label="Tekin Group"><b>TEKİN</b><small>GROUP</small></a>
+    <a class="brand" href="#hero" aria-label="Tekin Group"><b>TEKİN</b><span>GROUP</span></a>
     <nav class="nav" aria-label="Ana menü">
-      <a href="#projeler" data-i18n="nav.projects">Projeler</a>
-      <a href="#muhendislik" data-i18n="nav.eng">Mühendislik</a>
-      <a href="#hakkimizda" data-i18n="nav.about">Hakkımızda</a>
-      <a href="#iletisim" data-i18n="nav.contact">İletişim</a>
+      <a href="#hero" data-sec="hero" data-i18n="nav.home">Anasayfa</a>
+      <a href="#hakkimizda" data-sec="hakkimizda" data-i18n="nav.about">Kurumsal</a>
+      <a href="#projeler" data-sec="projeler" data-i18n="nav.projects">İnşaat Projeleri</a>
+      <a href="#muhendislik" data-sec="muhendislik" data-i18n="nav.eng">Mühendislik Hizmetleri</a>
+      <a href="#iletisim" data-sec="iletisim" data-i18n="nav.contact">İletişim</a>
+      <a class="btn" href="#iletisim" data-i18n="nav.cta">Bize ulaşın →</a>
       <div class="lang" role="group" aria-label="Dil">
         <button type="button" data-lang="tr" aria-pressed="true">TR</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -269,29 +321,31 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
 
 <main id="home">
   <!-- Scroll-scrubbed hero film: Mevlana site, plot → structure → handover -->
-  <section class="film" id="hero" aria-label="Mevlana projesi">
+  <section class="film" id="hero" aria-label="Tekin Group">
     <div class="film-stick">
       <video id="film" src="hero.mp4" poster="img/poster.webp" muted playsinline preload="auto" aria-hidden="true"></video>
       <div class="film-veil"></div>
       <div class="parcel" aria-hidden="true">
-        <span data-i18n="hero.parcelLabel">Şantiye</span>
+        <span data-i18n="hero.parcelLabel">Şantiye · Mevlana</span>
         Mevlana Mah. · 3526 Ada / 5 Parsel
         <span>23.000 m²</span>
       </div>
       <div class="cap" data-stage="0">
-        <div class="eyebrow" data-i18n="hero.s0.eyebrow">Mevlana Projesi · Yapım aşamasında</div>
-        <h1 data-i18n="hero.s0.title">Arsadan yaşam alanına.</h1>
-        <p data-i18n="hero.s0.body">23.000 m² inşaat alanında üç konut bloğu. Aşağı kaydırın, projenin yükselişini izleyin.</p>
+        <div class="eyebrow" data-i18n="hero.s0.eyebrow">İnşaatın gücü,<br>mühendisliğin güvencesi</div>
+        <h1 data-i18n="hero.s0.title">Yaşamın Geleceğini <em>İnşa Ediyoruz.</em></h1>
+        <p data-i18n="hero.s0.body">20 yılı aşkın deneyimimiz, 5.000'in üzerinde konut ve güçlü mühendislik altyapımızla daha güvenli, daha konforlu ve daha sürdürülebilir yaşam alanları oluşturuyoruz.</p>
+        <a class="btn" href="#projeler" data-i18n="hero.cta">Projelerimizi keşfedin →</a>
       </div>
       <div class="cap" data-stage="1" data-off>
-        <div class="eyebrow" data-i18n="hero.s1.eyebrow">Yapım</div>
-        <h2 data-i18n="hero.s1.title">Kat kat, planlandığı gibi.</h2>
+        <div class="eyebrow" data-i18n="hero.s1.eyebrow">Mevlana projesi · Yapım</div>
+        <h2 data-i18n="hero.s1.title">Kat kat, <em>planlandığı gibi.</em></h2>
         <p data-i18n="hero.s1.body">Temelden çatıya her aşama ruhsatlı, denetimli ve takvimine bağlı ilerler.</p>
       </div>
       <div class="cap" data-stage="2" data-off>
-        <div class="eyebrow" data-i18n="hero.s2.eyebrow">Teslim</div>
-        <h2 data-i18n="hero.s2.title">Bir mahalleye değer katan yapılar.</h2>
-        <p data-i18n="hero.s2.body">Peyzajlı iç bahçe, havuz ve spor alanlarıyla tamamlanan bir yaşam alanı.</p>
+        <div class="eyebrow" data-i18n="hero.s2.eyebrow">Mevlana projesi · Teslim</div>
+        <h2 data-i18n="hero.s2.title">Mahalleye <em>değer katan</em> yapılar.</h2>
+        <p data-i18n="hero.s2.body">Peyzajlı iç bahçe, havuz ve spor alanlarıyla tamamlanan üç blokluk bir yaşam alanı.</p>
+        <a class="btn" href="#proje-mevlana" data-i18n="go.detail">Projeyi incele →</a>
       </div>
       <div class="stages" aria-hidden="true">
         <div class="stage on"><span data-i18n="hero.st0">01 · Arsa</span><i></i></div>
@@ -303,85 +357,98 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
 
   <section class="band" aria-label="Rakamlarla">
     <div class="wrap band-in">
-      <div class="fig rv"><b>20<sup>+</sup></b><span data-i18n="fig.years">yıllık deneyim</span></div>
-      <div class="fig rv"><b>5.000<sup>+</sup></b><span data-i18n="fig.units">konuttan edinilen birikim</span></div>
-      <div class="fig rv"><b>81.700<sup>m²</sup></b><span data-i18n="fig.area">dört büyük projede toplam inşaat alanı</span></div>
-      <div class="fig rv"><b>23.000<sup>m²</sup></b><span data-i18n="fig.live">şu an yapımı süren Mevlana projesi</span></div>
+      <div class="fig rv"><svg><use href="#i-building"/></svg><div><b>20<sup>+</sup></b><span data-i18n="fig.years">Yıllık deneyim</span></div></div>
+      <div class="fig rv"><svg><use href="#i-house"/></svg><div><b>5.000<sup>+</sup></b><span data-i18n="fig.units">Konut deneyimi</span></div></div>
+      <div class="fig rv"><svg><use href="#i-area"/></svg><div><b>81.700<sup>m²</sup></b><span data-i18n="fig.area">Dört büyük projede inşaat alanı</span></div></div>
+      <div class="fig rv"><svg><use href="#i-users"/></svg><div><b data-i18n="fig.trustB" style="font-size:1.15rem;font-family:var(--f-body);font-weight:600">Güvenle</b><span data-i18n="fig.trust">Yükselen değerler</span></div></div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="light white sec" id="muhendislik">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow rule" data-i18n="eng.eyebrow">Hizmet alanlarımız</div>
+          <h2 data-i18n="eng.title">İnşaat ve mühendisliği <em>tek bir vizyonda</em> buluşturuyoruz.</h2>
+        </div>
+        <p data-i18n="eng.intro">Konut ve ticari yapı projelerimizin yanı sıra yapıların her aşamasına teknik değer katan mühendislik hizmetleri sunuyoruz.</p>
+      </div>
+      <div class="svc-grid">
+        <a class="svc rv" href="#projeler">
+          <span class="ico"><svg><use href="#i-building"/></svg></span>
+          <h3 data-i18n="svc.0">Konut ve ticari yapı projeleri</h3>
+          <p data-i18n="svc.0d">Arsa geliştirmeden anahtar teslime konut siteleri, rezidanslar, ticari ve eğitim yapıları.</p>
+          <span class="ref"><span data-i18n="svc.0r">Projelerimizi görün</span><i>→</i></span>
+        </a>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-bolt"/></svg></span>
+          <h3 data-i18n="svc.1">Elektrik-mekanik uygulama ve ruhsat projeleri</h3>
+          <p data-i18n="svc.1d">Konut ve ticari yapılar için elektrik ve mekanik tesisat projelerinin hazırlanması, ruhsat süreçlerinin yürütülmesi ve sahada uygulanması.</p>
+          <span class="ref"><span data-i18n="svc.1r">Proje · Ruhsat · Uygulama</span></span>
+        </div>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-ground"/></svg></span>
+          <h3 data-i18n="svc.2">Topraklama ölçüm raporları</h3>
+          <p data-i18n="svc.2d">Topraklama ve yıldırımdan korunma tesisatlarının ölçümü ile yönetmeliğe uygun periyodik raporlanması.</p>
+          <span class="ref"><span data-i18n="svc.2r">Elektrik Tesislerinde Topraklamalar Yönetmeliği</span></span>
+        </div>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-wave"/></svg></span>
+          <h3 data-i18n="svc.3">Akustik proje hazırlama</h3>
+          <p data-i18n="svc.3d">Yapıların gürültüye karşı korunması için ses yalıtımı hesapları ve akustik projelendirme.</p>
+          <span class="ref"><span data-i18n="svc.3r">Binaların Gürültüye Karşı Korunması Hakkında Yönetmelik</span></span>
+        </div>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-leaf"/></svg></span>
+          <h3 data-i18n="svc.4">Enerji kimlik belgesi hazırlama</h3>
+          <p data-i18n="svc.4d">Bina enerji performansının hesaplanması ve A'dan G'ye sınıflandırılan Enerji Kimlik Belgesinin düzenlenmesi.</p>
+          <span class="ref"><span>BEP-TR</span>
+            <span class="ekb" aria-label="Enerji sınıfları A'dan G'ye"><span style="background:#3f9e5a">A</span><span style="background:#6db24f">B</span><span style="background:#b5c843">C</span><span style="background:#ecd83f">D</span><span style="background:#f0b13a">E</span><span style="background:#e8793a">F</span><span style="background:#d9473a">G</span></span></span>
+        </div>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-trafo"/></svg></span>
+          <h3 data-i18n="svc.5">Trafo proje ve uygulama hizmetleri</h3>
+          <p data-i18n="svc.5d">Trafo merkezlerinin projelendirilmesi, onay süreçlerinin takibi, montajı ve devreye alınması.</p>
+          <span class="ref"><span>OG / AG</span></span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Projects -->
-  <section class="sec wrap" id="projeler">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow" data-i18n="proj.eyebrow">Portfolyo</div>
-        <h2 data-i18n="proj.title">Projelerimiz</h2>
-      </div>
-      <p data-i18n="proj.intro">İstanbul'da konut ve eğitim yapıları. Her projenin ruhsatı ve iş bitirme belgesi mevcuttur.</p>
-    </div>
-
-    <div class="group" id="devam-eden">
-      <div class="group-title"><h3 data-i18n="grp.live">Devam eden projeler</h3><span>01</span></div>
-      <article class="feature">
-        <a class="ph" href="#proje-mevlana" aria-label="Mevlana"><img src="img/img30.webp" alt="Mevlana projesi vaziyet görseli, üç blok ve iç bahçe" loading="lazy"><span class="status live" data-i18n="st.live">Yapım aşamasında</span></a>
-        <div class="sheet rv">
-          <div class="eyebrow">Mevlana Mah. · 3526 / 5</div>
-          <h3>Mevlana</h3>
-          <p data-i18n="p.mevlana">Peyzajlı iç bahçe, yüzme havuzu, çocuk oyun alanı ve basketbol sahası çevresinde konumlanan üç konut bloğu.</p>
-          <dl class="specs">
-            <dt data-i18n="sp.area">İnşaat alanı</dt><dd>23.000 m²</dd>
-            <dt data-i18n="sp.blocks">Blok</dt><dd>3</dd>
-            <dt data-i18n="sp.status">Durum</dt><dd data-i18n="st.live">Yapım aşamasında</dd>
-          </dl>
-          <a class="cta" href="#proje-mevlana" data-i18n="go.detail">Projeyi incele →</a>
+  <section class="light sec" id="projeler">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow rule" data-i18n="proj.eyebrow">İnşaat projeleri</div>
+          <h2 data-i18n="proj.title">Projelerimiz</h2>
         </div>
-      </article>
-    </div>
-
-    <div class="group" id="tamamlanan">
-      <div class="group-title"><h3 data-i18n="grp.done">Tamamlanan projeler</h3><span id="doneCount">05</span></div>
-      <div class="cards" id="cards"></div>
-    </div>
-  </section>
-
-  <!-- Engineering -->
-  <section class="eng" id="muhendislik">
-    <div class="sec wrap eng-grid">
-      <div class="eng-intro">
-        <div class="eyebrow" data-i18n="eng.eyebrow">Mühendislik</div>
-        <h2 data-i18n="eng.title">İnşaat ve mühendisliği tek bir vizyonda buluşturuyoruz.</h2>
-        <p data-i18n="eng.intro">Konut ve ticari yapı projelerimizin yanı sıra yapıların her aşamasına teknik değer katan mühendislik hizmetleri sunuyoruz.</p>
+        <p data-i18n="proj.intro">İstanbul'da konut ve eğitim yapıları. Her projenin ruhsatı ve iş bitirme belgesi mevcuttur.</p>
       </div>
-      <ul class="svc">
-        <li class="rv">
-          <h3 data-i18n="svc.1">Elektrik-mekanik uygulama ve ruhsat projeleri</h3>
-          <span class="ref" data-i18n="svc.1r">Proje · Ruhsat · Uygulama</span>
-          <p data-i18n="svc.1d">Konut ve ticari yapılar için elektrik ve mekanik tesisat projelerinin hazırlanması, ruhsat süreçlerinin yürütülmesi ve sahada uygulanması.</p>
-        </li>
-        <li class="rv">
-          <h3 data-i18n="svc.2">Topraklama ölçüm raporları</h3>
-          <span class="ref" data-i18n="svc.2r">Elektrik Tesislerinde Topraklamalar Yönetmeliği</span>
-          <p data-i18n="svc.2d">Topraklama ve yıldırımdan korunma tesisatlarının ölçümü ile yönetmeliğe uygun periyodik raporlanması.</p>
-        </li>
-        <li class="rv">
-          <h3 data-i18n="svc.3">Akustik proje hazırlama</h3>
-          <span class="ref" data-i18n="svc.3r">Binaların Gürültüye Karşı Korunması Hakkında Yönetmelik</span>
-          <p data-i18n="svc.3d">Yapıların gürültüye karşı korunması için ses yalıtımı hesapları ve akustik projelendirme.</p>
-        </li>
-        <li class="rv">
-          <h3 data-i18n="svc.4">Enerji kimlik belgesi hazırlama</h3>
-          <span class="ref">BEP-TR</span>
-          <p data-i18n="svc.4d">Bina enerji performansının hesaplanması ve A'dan G'ye sınıflandırılan Enerji Kimlik Belgesinin düzenlenmesi.</p>
-          <div class="ekb" aria-label="Enerji sınıfları A'dan G'ye">
-            <span style="background:#3f9e5a">A</span><span style="background:#6db24f">B</span><span style="background:#b5c843">C</span><span style="background:#ecd83f">D</span><span style="background:#f0b13a">E</span><span style="background:#e8793a">F</span><span style="background:#d9473a">G</span>
+
+      <div class="group" id="devam-eden">
+        <div class="group-title"><h3 data-i18n="grp.live">Devam eden projeler</h3><span>01</span></div>
+        <article class="feature">
+          <a class="ph" href="#proje-mevlana" aria-label="Mevlana"><img src="img/img30.webp" alt="Mevlana projesi vaziyet görseli, üç blok ve iç bahçe" loading="lazy"><span class="status live" data-i18n="st.live">Yapım aşamasında</span></a>
+          <div class="sheet rv">
+            <div class="eyebrow">Mevlana Mah. · 3526 / 5</div>
+            <h3>Mevlana</h3>
+            <p data-i18n="p.mevlana">Peyzajlı iç bahçe, yüzme havuzu, çocuk oyun alanı ve basketbol sahası çevresinde konumlanan üç konut bloğu.</p>
+            <dl class="specs">
+              <dt data-i18n="sp.area">İnşaat alanı</dt><dd>23.000 m²</dd>
+              <dt data-i18n="sp.blocks">Blok</dt><dd>3</dd>
+              <dt data-i18n="sp.status">Durum</dt><dd data-i18n="st.live">Yapım aşamasında</dd>
+            </dl>
+            <a class="btn" href="#proje-mevlana" data-i18n="go.detail">Projeyi incele →</a>
           </div>
-        </li>
-        <li class="rv">
-          <h3 data-i18n="svc.5">Trafo proje ve uygulama hizmetleri</h3>
-          <span class="ref">OG / AG</span>
-          <p data-i18n="svc.5d">Trafo merkezlerinin projelendirilmesi, onay süreçlerinin takibi, montajı ve devreye alınması.</p>
-        </li>
-      </ul>
+        </article>
+      </div>
+
+      <div class="group" id="tamamlanan">
+        <div class="group-title"><h3 data-i18n="grp.done">Tamamlanan projeler</h3><span id="doneCount">05</span></div>
+        <div class="cards" id="cards"></div>
+      </div>
     </div>
   </section>
 
@@ -390,8 +457,8 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
     <div class="strip-stick">
       <div class="wrap strip-head">
         <div>
-          <div class="eyebrow" data-i18n="proc.eyebrow">Şantiyeden teslime</div>
-          <h2 data-i18n="proc.title">Temelden anahtar teslimine</h2>
+          <div class="eyebrow rule" data-i18n="proc.eyebrow">Şantiyeden teslime</div>
+          <h2 data-i18n="proc.title">Temelden <em>anahtar teslimine</em></h2>
         </div>
         <p class="muted" style="margin:0;max-width:40ch" data-i18n="proc.intro">Kazıdan iç mekân detaylarına kadar her aşama, tasarım kalitesi ve mühendislik disipliniyle yürütülür.</p>
       </div>
@@ -411,61 +478,72 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
   </section>
 
   <!-- About -->
-  <section class="sec wrap" id="hakkimizda">
-    <div class="about">
-      <div class="about-img rv"><img src="img/img12.webp" alt="Konut kulesi cephesi" loading="lazy"></div>
+  <section class="light white sec" id="hakkimizda">
+    <div class="wrap about">
+      <div class="about-img rv"><img src="img/img12.webp" alt="Konut kulesi cephesi" loading="lazy"><div class="badge"><b>20+</b><span data-i18n="ab.badge">yıllık deneyim</span></div></div>
       <div class="about-copy rv">
-        <div class="eyebrow" data-i18n="ab.eyebrow">Hakkımızda</div>
-        <h2 data-i18n="ab.title">Deneyimden Güç Alıyor, Geleceği Şekillendiriyoruz.</h2>
+        <div class="eyebrow rule" data-i18n="ab.eyebrow">Hakkımızda</div>
+        <h2 data-i18n="ab.title">Deneyimden Güç Alıyor, <em>Geleceği Şekillendiriyoruz.</em></h2>
         <p class="lead" data-i18n="ab.lead">20 yılı aşkın deneyimimiz ve 5.000'in üzerinde konuttan edindiğimiz birikimle, inşaat ve mühendislik alanlarında geleceğe değer katan çözümler üretiyoruz.</p>
         <p data-i18n="ab.p1">TEKİN GROUP olarak çağdaş mimariyi, mühendislik uzmanlığını ve yenilikçi teknolojileri bir araya getiriyoruz. Estetik, fonksiyonellik ve sürdürülebilirliği esas alarak yalnızca bugünün değil, geleceğin ihtiyaçlarına da yanıt veren yaşam alanları geliştiriyoruz.</p>
         <blockquote data-i18n="ab.quote">İnşaat ve mühendisliği tek bir vizyonda buluşturuyoruz.</blockquote>
         <p data-i18n="ab.p2">Konut ve ticari yapı projelerimizin yanı sıra elektrik ve mekanik uygulama ve ruhsat projeleri, topraklama ölçüm ve raporlama, akustik projelendirme ve enerji kimlik belgesi hizmetleriyle yapıların her aşamasına teknik değer katıyoruz.</p>
         <p data-i18n="ab.p3">Her projemizde tasarım kalitesini, mühendislik disiplinini ve güvenilirliği ön planda tutuyor; detaylara verdiğimiz önemle kalıcı ve nitelikli eserler ortaya koymayı hedefliyoruz.</p>
         <p data-i18n="ab.p4">Geçmişten gelen deneyimimizi geleceğin teknolojileriyle birleştirerek gelişmeye, üretmeye ve yeni değerler oluşturmaya devam ediyoruz.</p>
+        <ul class="values">
+          <li><svg><use href="#i-gem"/></svg><span data-i18n="v.1">Kalite ve güven</span></li>
+          <li><svg><use href="#i-building"/></svg><span data-i18n="v.2">Mühendislik disiplini</span></li>
+          <li><svg><use href="#i-leaf"/></svg><span data-i18n="v.3">Sürdürülebilir yapılar</span></li>
+          <li><svg><use href="#i-users"/></svg><span data-i18n="v.4">Müşteri memnuniyeti</span></li>
+          <li><svg><use href="#i-gear"/></svg><span data-i18n="v.5">Teknik uzmanlık</span></li>
+          <li><svg><use href="#i-doc"/></svg><span data-i18n="v.6">Belgeli teslim</span></li>
+        </ul>
         <div class="motto"><small>TEKİN GROUP</small><span data-i18n="ab.motto">Güçlü Mühendislik. Çağdaş Mimari. Güvenilir Gelecek.</span></div>
       </div>
     </div>
   </section>
 
   <!-- Timeline -->
-  <section class="sec wrap" aria-labelledby="tl-title" style="padding-top:0">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow" data-i18n="tl.eyebrow">Kilometre taşları</div>
-        <h2 id="tl-title" data-i18n="tl.title">Yıllar içinde</h2>
+  <section class="tl-sec sec" aria-labelledby="tl-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow rule" data-i18n="tl.eyebrow">Kilometre taşları</div>
+          <h2 id="tl-title" data-i18n="tl.title">Yıllar içinde</h2>
+        </div>
       </div>
+      <ol class="timeline">
+        <li class="rv"><time data-i18n="tl.y0">2016 öncesi</time><b data-i18n="tl.b0">~20 konut binası</b><span data-i18n="tl.d0">10 ile 48 daire arasında projeler</span></li>
+        <li class="rv"><time>2017</time><b>Hisar Panorama</b><span data-i18n="tl.d1">160 daire · 30.000 m²</span></li>
+        <li class="rv"><time>2018 – 19</time><b data-i18n="n.bil">Bil Koleji</b><span data-i18n="tl.d2">Kağıthane · eğitim yapısı</span></li>
+        <li class="rv"><time>2019 – 21</time><b>Gürsel Residence</b><span data-i18n="tl.d3">152 daire · 19 kat</span></li>
+        <li class="rv"><time>2024</time><b data-i18n="n.kucukkoy">Küçükköy Projesi</b><span data-i18n="tl.d4">12.700 m² · iş ortaklığı</span></li>
+        <li class="rv now"><time data-i18n="tl.y5">Bugün</time><b>Mevlana</b><span data-i18n="tl.d5">23.000 m² · yapım aşamasında</span></li>
+      </ol>
     </div>
-    <ol class="timeline">
-      <li class="rv"><time data-i18n="tl.y0">2016 öncesi</time><b data-i18n="tl.b0">~20 konut binası</b><span data-i18n="tl.d0">10 ile 48 daire arasında projeler</span></li>
-      <li class="rv"><time>2017</time><b>Hisar Panorama</b><span data-i18n="tl.d1">160 daire · 30.000 m²</span></li>
-      <li class="rv"><time>2018 – 19</time><b data-i18n="n.bil">Bil Koleji</b><span data-i18n="tl.d2">Kağıthane · eğitim yapısı</span></li>
-      <li class="rv"><time>2019 – 21</time><b>Gürsel Residence</b><span data-i18n="tl.d3">152 daire · 19 kat</span></li>
-      <li class="rv"><time>2024</time><b data-i18n="n.kucukkoy">Küçükköy Projesi</b><span data-i18n="tl.d4">12.700 m² · iş ortaklığı</span></li>
-      <li class="rv now"><time data-i18n="tl.y5">Bugün</time><b>Mevlana</b><span data-i18n="tl.d5">23.000 m² · yapım aşamasında</span></li>
-    </ol>
   </section>
 </main>
 
 <!-- Project detail view, rendered from PROJECTS by the router -->
-<main id="detail" class="detail" hidden aria-live="polite"></main>
+<main id="detail" class="detail light" hidden aria-live="polite"></main>
 
 <section class="contact" id="iletisim">
   <div class="sec wrap contact-grid">
     <div>
-      <div class="eyebrow" data-i18n="ct.eyebrow">İletişim</div>
-      <h2 data-i18n="ct.title">Bir sonraki projeyi konuşalım.</h2>
+      <div class="eyebrow rule" data-i18n="ct.eyebrow">İletişim</div>
+      <h2 data-i18n="ct.title">Bir sonraki projeyi <em>konuşalım.</em></h2>
     </div>
     <div class="addr">
       <div>
         <div class="eyebrow" data-i18n="ct.office">Merkez ofis</div>
-        <address id="addr">Göztepe Mah. İstoç 2. Cad. A-4 Blok No: 1/2, İç Kapı B13<br>Bağcılar / İstanbul</address>
+        <address id="addr">Merkez Mah. Salihpaşa Cad. Hasanağa İş Merkezi<br>No: 49, İç Kapı No: 34<br>Gaziosmanpaşa / İstanbul</address>
         <button type="button" class="copy" data-copy="addr" data-i18n="ct.copy">Adresi kopyala</button>
-        <a class="textlink" href="https://www.google.com/maps/search/?api=1&query=%C4%B0sto%C3%A7+2.+Cadde+A-4+Blok+Ba%C4%9Fc%C4%B1lar+%C4%B0stanbul" target="_blank" rel="noopener" data-i18n="sp.map">Haritada görüntüle ↗</a>
+        <a class="textlink" href="https://www.google.com/maps/search/?api=1&query=Hasana%C4%9Fa+%C4%B0%C5%9F+Merkezi+Salihpa%C5%9Fa+Caddesi+Gaziosmanpa%C5%9Fa+%C4%B0stanbul" target="_blank" rel="noopener" data-i18n="sp.map">Haritada görüntüle ↗</a>
       </div>
       <div>
-        <div class="eyebrow" data-i18n="ct.phone">Telefon · E-posta</div>
-        <p class="pending" data-i18n="ct.pending">Telefon ve e-posta bilgileri eklenecek.</p>
+        <div class="eyebrow" data-i18n="ct.phone">Telefon</div>
+        <a id="tel" class="phone" href="tel:+902126140788">0212 614 07 88</a>
+        <button type="button" class="copy" data-copy="tel" data-i18n="ct.copyTel">Numarayı kopyala</button>
       </div>
     </div>
   </div>
@@ -549,13 +627,13 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
     var done = PROJECTS.filter(function(p){return !p.live});
     $('#doneCount').textContent = ('0'+done.length).slice(-2);
     $('#cards').innerHTML = done.map(function(p){
-      var ph;
-      if(p.imgs.length) ph='<div class="ph"><img src="img/'+p.imgs[0][0]+'.webp" alt="'+esc(L(p.name))+'" loading="lazy"></div>';
+      var ph, yr='<span class="yr">'+esc(L(p.cardYear))+'</span>';
+      if(p.imgs.length) ph='<div class="ph"><img src="img/'+p.imgs[0][0]+'.webp" alt="'+esc(L(p.name))+'" loading="lazy">'+yr+'</div>';
       else if(p.units) ph='<div class="ph type">'+unitsHTML(p.units)+'</div>';
-      else ph='<div class="ph type"><b>'+fmt(p.type.big)+'<sup>'+p.type.unit+'</sup></b><span>'+esc(L({tr:'İnşaat alanı',en:'Construction area'}))+'</span></div>';
+      else ph='<div class="ph type"><b>'+fmt(p.type.big)+'<sup>'+p.type.unit+'</sup></b><span class="lbl">'+esc(L({tr:'İnşaat alanı',en:'Construction area'}))+'</span></div>';
       return '<a class="card rv" href="#proje-'+p.id+'">'+ph+
-        '<div class="meta"><span>'+esc(L(p.cardYear))+'</span><span>'+esc(L(p.card))+'</span></div>'+
-        '<h4>'+esc(L(p.name))+'</h4><span class="go">'+(lang==='en'?'View project →':'Projeyi incele →')+'</span></a>';
+        '<div class="body"><span class="meta">'+esc(L(p.cardYear))+' · '+esc(L(p.card))+'</span>'+
+        '<h4>'+esc(L(p.name))+'</h4><span class="go"><span>'+(lang==='en'?'View project':'Projeyi incele')+'</span><span>→</span></span></div></a>';
     }).join('');
   }
 
@@ -569,16 +647,16 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
     var gal = p.imgs.length ? (
       '<div class="gal-head"><h2>'+(lang==='en'?'Gallery':'Galeri')+'</h2><span>'+p.imgs.length+' '+(lang==='en'?'photos':'görsel')+'</span></div>'+
       '<div class="gallery">'+p.imgs.map(function(g,k){ return '<button type="button" data-k="'+k+'"><img src="img/'+g[0]+'.webp" alt="'+esc(L(g[1]))+'" loading="lazy"></button>'; }).join('')+'</div>'
-    ) : (p.units ? '<div class="gal-head"><h2>'+(lang==='en'?'Apartments per project':'Projelere göre daire sayısı')+'</h2><span>9</span></div><div style="height:220px;padding-bottom:40px;margin-bottom:64px">'+unitsHTML(p.units)+'</div>'
+    ) : (p.units ? '<div class="gal-head"><h2>'+(lang==='en'?'Apartments per project':'Projelere göre daire sayısı')+'</h2><span>9</span></div><div style="height:260px;padding:24px;margin-bottom:72px;background:var(--navy)">'+unitsHTML(p.units)+'</div>'
        : '<p class="pending" style="padding-bottom:72px">'+(lang==='en'?'Project photos will be added.':'Proje görselleri eklenecek.')+'</p>');
     $('#detail').innerHTML =
-      '<div class="wrap"><a class="back" href="#projeler">← '+(lang==='en'?'All projects':'Tüm projeler')+'</a></div>'+
+      '<div class="backbar"><div class="wrap"><a class="back" href="#projeler">← '+(lang==='en'?'All projects':'Tüm projeler')+'</a></div></div>'+
       (hero ? '<div class="d-hero">'+hero+'<div class="d-title"><span class="status'+(p.live?' live':'')+'">'+esc(L(p.status))+'</span><h1>'+esc(L(p.name))+'</h1>'+(p.sub?'<div class="eyebrow">'+esc(p.sub)+'</div>':'')+'</div></div>'
-            : '<div class="wrap" style="padding-block:24px 8px;display:flex;flex-direction:column;gap:16px"><span class="status">'+esc(L(p.status))+'</span><h1 style="font-size:var(--s-xxl)">'+esc(L(p.name))+'</h1></div>')+
+            : '<div class="d-plain wrap" style="color:#fff"><span class="status">'+esc(L(p.status))+'</span><h1>'+esc(L(p.name))+'</h1></div>')+
       '<div class="wrap"><div class="d-body"><p class="lead">'+esc(L(p.lead))+'</p><div class="side"><dl class="specs">'+specs+'</dl>'+
       (p.map?'<a class="textlink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+p.map+'">'+(lang==='en'?'View on map ↗':'Haritada görüntüle ↗')+'</a>':'')+
       '</div></div>'+gal+
-      '<div class="nextp"><span class="eyebrow">'+(lang==='en'?'Next project':'Sonraki proje')+'</span><a href="#proje-'+nx.id+'"><span class="muted" style="font-size:var(--s-sm)">'+esc(L(nx.status))+'</span><b>'+esc(L(nx.name))+' →</b></a></div></div>';
+      '<div class="nextp"><span class="eyebrow rule">'+(lang==='en'?'Next project':'Sonraki proje')+'</span><a href="#proje-'+nx.id+'"><span class="muted" style="font-size:var(--s-sm)">'+esc(L(nx.status))+'</span><b>'+esc(L(nx.name))+' →</b></a></div></div>';
     $$('.gallery button',$('#detail')).forEach(function(b){ b.addEventListener('click',function(){ openLb(+b.dataset.k); }); });
   }
 
@@ -611,40 +689,43 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
 
   /* ---------- i18n (add a language by adding one dictionary) ---------- */
   var EN = {
-    "nav.projects":"Projects","nav.eng":"Engineering","nav.about":"About","nav.contact":"Contact",
-    "hero.parcelLabel":"Site",
-    "hero.s0.eyebrow":"Mevlana Project · Under construction","hero.s0.title":"From plot to place to live.",
-    "hero.s0.body":"Three residential blocks on 23,000 m² of construction area. Scroll to watch the project rise.",
-    "hero.s1.eyebrow":"Construction","hero.s1.title":"Floor by floor, as planned.",
+    "nav.home":"Home","nav.about":"Company","nav.projects":"Construction Projects","nav.eng":"Engineering Services","nav.contact":"Contact","nav.cta":"Contact us →",
+    "hero.parcelLabel":"Site · Mevlana",
+    "hero.s0.eyebrow":"The strength of construction,<br>the assurance of engineering","hero.s0.title":"Building the <em>Future of Living.</em>",
+    "hero.s0.body":"With more than 20 years of experience, over 5,000 homes and a strong engineering base, we create safer, more comfortable and more sustainable living spaces.",
+    "hero.cta":"Explore our projects →",
+    "hero.s1.eyebrow":"Mevlana project · Construction","hero.s1.title":"Floor by floor, <em>as planned.</em>",
     "hero.s1.body":"From foundation to roof, every stage is permitted, inspected and tied to its schedule.",
-    "hero.s2.eyebrow":"Handover","hero.s2.title":"Buildings that add value to a neighbourhood.",
-    "hero.s2.body":"A living environment completed with a landscaped courtyard, pool and sports areas.",
+    "hero.s2.eyebrow":"Mevlana project · Handover","hero.s2.title":"Buildings that <em>add value</em> to a neighbourhood.",
+    "hero.s2.body":"A three-block living environment completed with a landscaped courtyard, pool and sports areas.",
     "hero.st0":"01 · Plot","hero.st1":"02 · Structure","hero.st2":"03 · Project",
-    "fig.years":"years of experience","fig.units":"homes of accumulated expertise","fig.area":"total construction area across four major projects","fig.live":"Mevlana project, currently under construction",
-    "proj.eyebrow":"Portfolio","proj.title":"Our projects","proj.intro":"Residential and education buildings in Istanbul. Every project holds its building permit and completion certificate.",
-    "grp.live":"Ongoing projects","grp.done":"Completed projects",
-    "st.live":"Under construction","sp.area":"Construction area","sp.blocks":"Blocks","sp.status":"Status","go.detail":"View project →","sp.map":"View on map ↗",
-    "p.mevlana":"Three residential blocks arranged around a landscaped courtyard, swimming pool, playground and basketball court.",
-    "eng.eyebrow":"Engineering","eng.title":"We bring construction and engineering together in one vision.",
+    "fig.years":"Years of experience","fig.units":"Homes of experience","fig.area":"Construction area across four major projects","fig.trustB":"Rising","fig.trust":"on trust",
+    "eng.eyebrow":"Our services","eng.title":"We bring construction and engineering together <em>in one vision.</em>",
     "eng.intro":"Alongside our residential and commercial building projects, we provide engineering services that add technical value at every stage of a building.",
+    "svc.0":"Residential and commercial building projects","svc.0d":"Residential estates, residences, commercial and education buildings, from land development to handover.","svc.0r":"See our projects",
     "svc.1":"Electrical and mechanical installation and permit projects","svc.1r":"Design · Permit · Installation","svc.1d":"Preparing electrical and mechanical installation projects for residential and commercial buildings, managing permit processes and carrying out the work on site.",
     "svc.2":"Earthing measurement reports","svc.2r":"Regulation on Earthing in Electrical Installations","svc.2d":"Measurement of earthing and lightning protection systems, with periodic reports in line with the regulation.",
     "svc.3":"Acoustic design","svc.3r":"Regulation on Protecting Buildings Against Noise","svc.3d":"Sound insulation calculations and acoustic design to protect buildings against noise.",
-    "svc.4d":"Calculating building energy performance and issuing the Energy Performance Certificate, rated from A to G.","svc.4":"Energy performance certificates",
+    "svc.4":"Energy performance certificates","svc.4d":"Calculating building energy performance and issuing the Energy Performance Certificate, rated from A to G.",
     "svc.5":"Transformer design and installation","svc.5d":"Design of transformer substations, follow-up of approvals, installation and commissioning.",
-    "proc.eyebrow":"From site to handover","proc.title":"From foundation to keys","proc.intro":"From excavation to interior details, every stage is carried out with design quality and engineering discipline.",
+    "proj.eyebrow":"Construction projects","proj.title":"Our projects","proj.intro":"Residential and education buildings in Istanbul. Every project holds its building permit and completion certificate.",
+    "grp.live":"Ongoing projects","grp.done":"Completed projects",
+    "st.live":"Under construction","sp.area":"Construction area","sp.blocks":"Blocks","sp.status":"Status","go.detail":"View project →","sp.map":"View on map ↗",
+    "p.mevlana":"Three residential blocks arranged around a landscaped courtyard, swimming pool, playground and basketball court.",
+    "proc.eyebrow":"From site to handover","proc.title":"From foundation <em>to keys</em>","proc.intro":"From excavation to interior details, every stage is carried out with design quality and engineering discipline.",
     "t.site":"Site setup","t.dig":"Shoring and excavation","t.rebar":"Foundation rebar","t.raft":"Raft foundation","t.lobby":"Lobby","t.living":"Living room","t.kitchen":"Kitchen","t.bath":"Bathroom","t.balcony":"Balcony","t.handover":"Handover",
-    "ab.eyebrow":"About us","ab.title":"Powered by Experience, Shaping the Future.",
+    "ab.eyebrow":"About us","ab.title":"Powered by Experience, <em>Shaping the Future.</em>","ab.badge":"years of experience",
     "ab.lead":"With more than 20 years of experience and the knowledge gained from over 5,000 homes, we create solutions in construction and engineering that add value to the future.",
     "ab.p1":"As TEKİN GROUP, we bring together contemporary architecture, engineering expertise and innovative technologies. Grounded in aesthetics, functionality and sustainability, we develop living spaces that meet the needs not only of today but of the future.",
     "ab.quote":"We bring construction and engineering together in one vision.",
     "ab.p2":"Alongside our residential and commercial building projects, we add technical value at every stage of a building with electrical and mechanical installation and permit projects, earthing measurement and reporting, acoustic design and energy performance certificate services.",
     "ab.p3":"In every project we put design quality, engineering discipline and reliability first, and with our attention to detail we aim to create lasting, high-quality works.",
     "ab.p4":"By combining the experience of our past with the technologies of the future, we continue to grow, to build and to create new value.",
+    "v.1":"Quality and trust","v.2":"Engineering discipline","v.3":"Sustainable buildings","v.4":"Customer satisfaction","v.5":"Technical expertise","v.6":"Documented delivery",
     "ab.motto":"Strong Engineering. Contemporary Architecture. Reliable Future.",
     "tl.eyebrow":"Milestones","tl.title":"Over the years","tl.y0":"Before 2016","tl.b0":"~20 residential buildings","tl.d0":"Projects of 10 to 48 apartments","tl.d1":"160 apartments · 30,000 m²","tl.d2":"Kağıthane · education building","tl.d3":"152 apartments · 19 floors","tl.d4":"12,700 m² · joint venture","tl.y5":"Today","tl.d5":"23,000 m² · under construction",
     "n.bil":"Bil College","n.kucukkoy":"Küçükköy Project",
-    "ct.eyebrow":"Contact","ct.title":"Let's talk about the next project.","ct.office":"Head office","ct.copy":"Copy address","ct.phone":"Phone · Email","ct.pending":"Phone and email details to be added.",
+    "ct.eyebrow":"Contact","ct.title":"Let's talk about <em>the next project.</em>","ct.office":"Head office","ct.copy":"Copy address","ct.phone":"Phone","ct.copyTel":"Copy number",
     "lb.close":"Close ✕"
   };
   var DICT = { en: EN };
@@ -677,6 +758,7 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
 
   /* ---------- Scroll engine ---------- */
   var top=$('#top'), film=$('#film'), filmSec=$('#hero'), caps=$$('.cap'), stages=$$('.stage');
+  var navSecs=$$('.nav a[data-sec]');
   var strip=$('#surec'), track=$('#track'), cur=0, stageNow=0, mobile=matchMedia('(max-width:760px)');
   function prog(sec){ var r=sec.getBoundingClientRect(), span=sec.offsetHeight-innerHeight; return span>0?Math.min(1,Math.max(0,-r.top/span)):0; }
   function sizeStrip(){ if(mobile.matches||home.hidden){ strip.style.height=''; return; } strip.style.height=(innerHeight+Math.max(0,track.scrollWidth-innerWidth))+'px'; }
@@ -686,6 +768,8 @@ footer{padding-block:28px;border-top:1px solid var(--line);display:flex;justify-
 
   function frame(){
     top.classList.toggle('solid', scrollY>innerHeight*0.6 || !detail.hidden);
+    var act=null, best=-1e9; if(detail.hidden){ navSecs.forEach(function(n){ var el=document.getElementById(n.dataset.sec); if(!el) return; var t=el.getBoundingClientRect().top; if(t<=innerHeight*0.35 && t>best){ best=t; act=n; } }); } else act=$('.nav a[data-sec="projeler"]');
+    navSecs.forEach(function(n){ n.classList.toggle('on', n===act); });
     if(!home.hidden){
       var p=prog(filmSec);
       if(film.duration && !reduce){
