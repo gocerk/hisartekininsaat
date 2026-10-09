@@ -7,7 +7,7 @@
 <title>Tekin Group</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Playfair+Display:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: pinned scroll-scrubbed hero film (navy) → figures band (navy) → services (light) → ongoing + completed projects (cream) → build strip (navy) → about (light) → timeline (navy) → contact (navy). Detail pages: navy hero, cream body. Navy + bronze-gold palette with a serif display. */
 :root{
@@ -20,12 +20,12 @@
   /* role tokens (overridden per section by .light) */
   --ink:var(--navy); --slab:var(--navy-2); --chalk:#f3f1ec; --concrete:#a5b0b8;
   --line:rgba(243,241,236,.14); --shade:rgba(15,29,41,.72); --accent:var(--gold-2);
-  --f-serif:"Playfair Display",Georgia,"Times New Roman",serif;
-  --f-display:"Archivo","Arial Narrow",Helvetica,Arial,sans-serif;
-  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-serif:"Sora","Segoe UI",system-ui,sans-serif;
+  --f-display:"Sora","Segoe UI",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --gutter:clamp(16px,4vw,56px);
-  --s-xs:.78rem; --s-sm:.9rem; --s-md:1.05rem; --s-lg:1.3rem; --s-xl:clamp(2rem,3.8vw,3.2rem); --s-xxl:clamp(2.7rem,6.6vw,5.6rem);
+  --s-xs:.78rem; --s-sm:.9rem; --s-md:1.05rem; --s-lg:1.3rem; --s-xl:clamp(1.9rem,3.4vw,2.9rem); --s-xxl:clamp(2.5rem,5.8vw,4.9rem);
   color-scheme:dark;
 }
 .light{--ink:var(--cream); --slab:#ebe4d8; --chalk:#13222f; --concrete:#5a6670; --line:rgba(19,34,47,.13); --shade:rgba(255,255,255,.9); --accent:#a87b3d; background:var(--ink); color:var(--chalk); color-scheme:light}
@@ -38,9 +38,9 @@ a{color:inherit}
 img,video{max-width:100%;display:block}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .wrap{padding-inline:var(--gutter)}
-h1,h2{font-family:var(--f-serif);font-weight:600;line-height:1.06;letter-spacing:-.005em;text-wrap:balance;margin:0}
-h3,h4{font-family:var(--f-body);font-weight:600;line-height:1.25;text-wrap:balance;margin:0}
-h1 em,h2 em{font-style:normal;color:var(--gold)}
+h1,h2{font-family:var(--f-serif);font-weight:600;line-height:1.08;letter-spacing:-.03em;text-wrap:balance;margin:0}
+h3,h4{font-family:var(--f-serif);font-weight:600;letter-spacing:-.01em;line-height:1.25;text-wrap:balance;margin:0}
+h1 em,h2 em{font-style:normal;font-weight:300;color:var(--gold)}
 .eyebrow{font-family:var(--f-body);font-weight:500;font-size:var(--s-xs);letter-spacing:.24em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:12px}
 .eyebrow.rule::before{content:"";width:36px;height:1px;background:currentColor}
 .muted{color:var(--concrete)}
@@ -58,8 +58,8 @@ h1 em,h2 em{font-style:normal;color:var(--gold)}
 .top.solid{background:rgba(15,29,41,.96)}
 .top-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:14px}
 .brand{display:flex;align-items:baseline;gap:8px;text-decoration:none;line-height:1}
-.brand b{font-family:var(--f-display);font-stretch:112%;font-weight:800;font-size:1.45rem;letter-spacing:.04em;color:#fff}
-.brand span{font-family:var(--f-display);font-stretch:112%;font-weight:300;font-size:1.45rem;letter-spacing:.04em;color:var(--gold-2)}
+.brand b{font-family:var(--f-display);font-weight:700;font-size:1.4rem;letter-spacing:.02em;color:#fff}
+.brand span{font-family:var(--f-display);font-weight:300;font-size:1.4rem;letter-spacing:.02em;color:var(--gold-2)}
 .nav{display:flex;align-items:center;gap:clamp(16px,2.2vw,30px)}
 .nav a:not(.btn){text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#d5dbe0;padding-block:8px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
 .nav a:not(.btn):hover,.nav a.on{color:#fff;border-color:var(--gold)}
@@ -99,7 +99,7 @@ h1 em,h2 em{font-style:normal;color:var(--gold)}
 .fig{display:flex;align-items:center;gap:16px;padding:clamp(22px,3vw,34px) 16px;border-right:1px solid var(--line)}
 .fig:last-child{border-right:0}
 .fig svg{flex:0 0 auto;width:42px;height:42px;color:var(--gold)}
-.fig b{display:block;font-family:var(--f-display);font-stretch:105%;font-weight:700;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.fig b{display:block;font-family:var(--f-display);font-weight:700;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1;color:#fff;font-variant-numeric:tabular-nums}
 .fig b sup{font-size:.5em;color:var(--gold-2);margin-left:3px;vertical-align:top}
 .fig span{display:block;margin-top:6px;font-size:var(--s-sm);color:#b9c3ca;line-height:1.35}
 @media (max-width:900px){.band-in{grid-template-columns:1fr 1fr}.fig:nth-child(2){border-right:0}.fig:nth-child(-n+2){border-bottom:1px solid var(--line)}}
