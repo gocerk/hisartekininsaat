@@ -217,6 +217,12 @@ h1 em,h2 em{font-style:normal;font-weight:300;color:var(--gold)}
 @media (max-width:860px){.about{grid-template-columns:1fr}.about-img{position:relative;top:auto;aspect-ratio:16/10}}
 @media (max-width:520px){.values{grid-template-columns:1fr}}
 
+.vm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.6vw,22px);margin-top:clamp(56px,7vw,96px)}
+.vm-card{background:var(--navy);color:#fff;border-top:3px solid var(--gold);padding:clamp(28px,3.4vw,48px);display:flex;flex-direction:column;gap:16px}
+.vm-card .eyebrow{color:var(--gold-2)}
+.vm-card h3{font-size:clamp(1.3rem,2.1vw,1.75rem);line-height:1.2;color:#fff}
+.vm-card p{margin:0;color:#c3ccd3;max-width:60ch}
+@media (max-width:860px){.vm{grid-template-columns:1fr}}
 /* Timeline (navy) */
 .tl-sec{background:var(--navy-2)}
 .timeline{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line)}
@@ -320,8 +326,8 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
     <a class="brand" href="#hero" aria-label="Tekin Group"><b>TEKİN</b><span>GROUP</span></a>
     <nav class="nav" aria-label="Ana menü">
       <a href="#hero" data-sec="hero" data-i18n="nav.home">Anasayfa</a>
-      <a href="#hakkimizda" data-sec="hakkimizda" data-i18n="nav.about">Kurumsal</a>
       <a href="#projeler" data-sec="projeler" data-i18n="nav.projects">İnşaat Projeleri</a>
+      <a href="#hakkimizda" data-sec="hakkimizda" data-i18n="nav.about">Kurumsal</a>
       <a href="#muhendislik" data-sec="muhendislik" data-i18n="nav.eng">Mühendislik Hizmetleri</a>
       <a href="#iletisim" data-sec="iletisim" data-i18n="nav.contact">İletişim</a>
       <a class="btn" href="#iletisim" data-i18n="nav.cta">Bize ulaşın →</a>
@@ -378,58 +384,6 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
     </div>
   </section>
 
-  <!-- Services -->
-  <section class="light white sec" id="muhendislik">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <div class="eyebrow rule" data-i18n="eng.eyebrow">Hizmet alanlarımız</div>
-          <h2 data-i18n="eng.title">İnşaat ve mühendisliği <em>tek bir vizyonda</em> buluşturuyoruz.</h2>
-        </div>
-        <p data-i18n="eng.intro">Konut ve ticari yapı projelerimizin yanı sıra yapıların her aşamasına teknik değer katan mühendislik hizmetleri sunuyoruz.</p>
-      </div>
-      <div class="svc-grid">
-        <a class="svc rv" href="#projeler">
-          <span class="ico"><svg><use href="#i-building"/></svg></span>
-          <h3 data-i18n="svc.0">Konut ve ticari yapı projeleri</h3>
-          <p data-i18n="svc.0d">Arsa geliştirmeden anahtar teslime konut siteleri, rezidanslar, ticari ve eğitim yapıları.</p>
-          <span class="ref"><span data-i18n="svc.0r">Projelerimizi görün</span><i>→</i></span>
-        </a>
-        <div class="svc rv">
-          <span class="ico"><svg><use href="#i-bolt"/></svg></span>
-          <h3 data-i18n="svc.1">Elektrik-mekanik uygulama ve ruhsat projeleri</h3>
-          <p data-i18n="svc.1d">Konut ve ticari yapılar için elektrik ve mekanik tesisat projelerinin hazırlanması, ruhsat süreçlerinin yürütülmesi ve sahada uygulanması.</p>
-          <span class="ref"><span data-i18n="svc.1r">Proje · Ruhsat · Uygulama</span></span>
-        </div>
-        <div class="svc rv">
-          <span class="ico"><svg><use href="#i-ground"/></svg></span>
-          <h3 data-i18n="svc.2">Topraklama ölçüm raporları</h3>
-          <p data-i18n="svc.2d">Topraklama ve yıldırımdan korunma tesisatlarının ölçümü ile yönetmeliğe uygun periyodik raporlanması.</p>
-          <span class="ref"><span data-i18n="svc.2r">Elektrik Tesislerinde Topraklamalar Yönetmeliği</span></span>
-        </div>
-        <div class="svc rv">
-          <span class="ico"><svg><use href="#i-wave"/></svg></span>
-          <h3 data-i18n="svc.3">Akustik proje hazırlama</h3>
-          <p data-i18n="svc.3d">Yapıların gürültüye karşı korunması için ses yalıtımı hesapları ve akustik projelendirme.</p>
-          <span class="ref"><span data-i18n="svc.3r">Binaların Gürültüye Karşı Korunması Hakkında Yönetmelik</span></span>
-        </div>
-        <div class="svc rv">
-          <span class="ico"><svg><use href="#i-leaf"/></svg></span>
-          <h3 data-i18n="svc.4">Enerji kimlik belgesi hazırlama</h3>
-          <p data-i18n="svc.4d">Bina enerji performansının hesaplanması ve A'dan G'ye sınıflandırılan Enerji Kimlik Belgesinin düzenlenmesi.</p>
-          <span class="ref"><span>BEP-TR</span>
-            <span class="ekb" aria-label="Enerji sınıfları A'dan G'ye"><span style="background:#3f9e5a">A</span><span style="background:#6db24f">B</span><span style="background:#b5c843">C</span><span style="background:#ecd83f">D</span><span style="background:#f0b13a">E</span><span style="background:#e8793a">F</span><span style="background:#d9473a">G</span></span></span>
-        </div>
-        <div class="svc rv">
-          <span class="ico"><svg><use href="#i-trafo"/></svg></span>
-          <h3 data-i18n="svc.5">Trafo proje ve uygulama hizmetleri</h3>
-          <p data-i18n="svc.5d">Trafo merkezlerinin projelendirilmesi, onay süreçlerinin takibi, montajı ve devreye alınması.</p>
-          <span class="ref"><span>OG / AG</span></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Projects -->
   <section class="light sec" id="projeler">
     <div class="wrap">
@@ -479,8 +433,8 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
       <div class="track" id="track">
         <figure class="tile wide"><img src="img/img16.webp" alt="Şantiye havadan" loading="lazy"><figcaption><b data-i18n="t.site">Şantiye kurulumu</b><span>01</span></figcaption></figure>
         <figure class="tile"><img src="img/img18.webp" alt="İksa ve kazı" loading="lazy"><figcaption><b data-i18n="t.dig">İksa ve kazı</b><span>02</span></figcaption></figure>
-        <figure class="tile"><img src="img/img17.webp" alt="Temel donatısı" loading="lazy"><figcaption><b data-i18n="t.rebar">Temel donatısı</b><span>03</span></figcaption></figure>
-        <figure class="tile wide"><img src="img/img14.webp" alt="Radye temel" loading="lazy"><figcaption><b data-i18n="t.raft">Radye temel</b><span>04</span></figcaption></figure>
+        <figure class="tile"><img src="img/img17.webp" alt="Temel kazısı ve yalıtım" loading="lazy"><figcaption><b data-i18n="t.rebar">Temel yalıtımı</b><span>03</span></figcaption></figure>
+        <figure class="tile"><img src="img/img13.webp" alt="Radye temel donatısı" loading="lazy"><figcaption><b data-i18n="t.raft">Radye temel donatısı</b><span>04</span></figcaption></figure>
         <figure class="tile wide"><img src="img/img26.webp" alt="Bina lobisi" loading="lazy"><figcaption><b data-i18n="t.lobby">Lobi</b><span>05</span></figcaption></figure>
         <figure class="tile wide"><img src="img/img19.webp" alt="Salon" loading="lazy"><figcaption><b data-i18n="t.living">Salon</b><span>06</span></figcaption></figure>
         <figure class="tile"><img src="img/img21.webp" alt="Mutfak" loading="lazy"><figcaption><b data-i18n="t.kitchen">Mutfak</b><span>07</span></figcaption></figure>
@@ -513,6 +467,74 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
           <li><svg><use href="#i-doc"/></svg><span data-i18n="v.6">Belgeli teslim</span></li>
         </ul>
         <div class="motto"><small>TEKİN GROUP</small><span data-i18n="ab.motto">Güçlü Mühendislik. Çağdaş Mimari. Güvenilir Gelecek.</span></div>
+      </div>
+    </div>
+  
+    <div class="wrap vm">
+      <article class="vm-card rv">
+        <div class="eyebrow rule" data-i18n="vm.v.e">Vizyonumuz</div>
+        <h3 data-i18n="vm.v.t">Geleceğin Yaşam Alanlarını Bugünden İnşa Ediyoruz.</h3>
+        <p data-i18n="vm.v.p1">Çağdaş mimari anlayışımız, yenilikçi yaklaşımımız ve köklü sektör deneyimimizle yaşam standartlarını yükselten, bulunduğu bölgeye değer katan ve geleceğin ihtiyaçlarına yanıt veren nitelikli projeler geliştirmek.</p>
+        <p data-i18n="vm.v.p2">Kalite, güven ve sürdürülebilirliği temel alarak gayrimenkul sektöründe öncü, yenilikçi ve prestijli bir marka olmak; estetik ve fonksiyonelliği bir araya getiren yapılarımızla şehirlerin geleceğine değer katmak.</p>
+      </article>
+      <article class="vm-card rv">
+        <div class="eyebrow rule" data-i18n="vm.m.e">Misyonumuz</div>
+        <h3 data-i18n="vm.m.t">Güvenle İnşa Ediyor, Yaşama Değer Katıyoruz.</h3>
+        <p data-i18n="vm.m.p1">20 yılı aşkın sektör deneyimimiz ve 5.000'in üzerinde konuttan edindiğimiz birikimle, insan odaklı, güvenli, estetik ve uzun ömürlü yaşam alanları inşa etmek.</p>
+        <p data-i18n="vm.m.p2">Her projemizde modern mimariyi, kaliteli malzemeyi ve yüksek uygulama standartlarını bir araya getirerek yaşam konforunu artıran, çevresiyle uyumlu ve sürdürülebilir yapılar ortaya koymak.</p>
+        <p data-i18n="vm.m.p3">Müşteri memnuniyetini, şeffaflığı ve güvenilirliği temel ilke edinerek yalnızca konut değil, nesiller boyu değerini koruyan yaşam alanları üretmek.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="light white sec" id="muhendislik">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow rule" data-i18n="eng.eyebrow">Hizmet alanlarımız</div>
+          <h2 data-i18n="eng.title">İnşaat ve mühendisliği <em>tek bir vizyonda</em> buluşturuyoruz.</h2>
+        </div>
+        <p data-i18n="eng.intro">Konut ve ticari yapı projelerimizin yanı sıra yapıların her aşamasına teknik değer katan mühendislik hizmetleri sunuyoruz.</p>
+      </div>
+      <div class="svc-grid">
+        <a class="svc rv" href="#projeler">
+          <span class="ico"><svg><use href="#i-building"/></svg></span>
+          <h3 data-i18n="svc.0">Konut ve ticari yapı projeleri</h3>
+          <p data-i18n="svc.0d">Arsa geliştirmeden anahtar teslime konut siteleri, rezidanslar, ticari ve eğitim yapıları.</p>
+          <span class="ref"><span data-i18n="svc.0r">Projelerimizi görün</span><i>→</i></span>
+        </a>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-bolt"/></svg></span>
+          <h3 data-i18n="svc.1">Elektrik-mekanik uygulama ve ruhsat projeleri</h3>
+          <p data-i18n="svc.1d">Konut ve ticari yapılar için elektrik ve mekanik tesisat projelerinin hazırlanması, ruhsat süreçlerinin yürütülmesi ve sahada uygulanması.</p>
+          <span class="ref"><span data-i18n="svc.1r">Proje · Ruhsat · Uygulama</span></span>
+        </div>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-ground"/></svg></span>
+          <h3 data-i18n="svc.2">Topraklama ölçüm raporları</h3>
+          <p data-i18n="svc.2d">Topraklama ve yıldırımdan korunma tesisatlarının ölçümü ile yönetmeliğe uygun periyodik raporlanması.</p>
+          <span class="ref"><span data-i18n="svc.2r">Elektrik Tesislerinde Topraklamalar Yönetmeliği</span></span>
+        </div>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-wave"/></svg></span>
+          <h3 data-i18n="svc.3">Akustik proje hazırlama</h3>
+          <p data-i18n="svc.3d">Yapıların gürültüye karşı korunması için ses yalıtımı hesapları ve akustik projelendirme.</p>
+          <span class="ref"><span data-i18n="svc.3r">Binaların Gürültüye Karşı Korunması Hakkında Yönetmelik</span></span>
+        </div>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-leaf"/></svg></span>
+          <h3 data-i18n="svc.4">Enerji kimlik belgesi hazırlama</h3>
+          <p data-i18n="svc.4d">Bina enerji performansının hesaplanması ve A'dan G'ye sınıflandırılan Enerji Kimlik Belgesinin düzenlenmesi.</p>
+          <span class="ref"><span>BEP-TR</span>
+            <span class="ekb" aria-label="Enerji sınıfları A'dan G'ye"><span style="background:#3f9e5a">A</span><span style="background:#6db24f">B</span><span style="background:#b5c843">C</span><span style="background:#ecd83f">D</span><span style="background:#f0b13a">E</span><span style="background:#e8793a">F</span><span style="background:#d9473a">G</span></span></span>
+        </div>
+        <div class="svc rv">
+          <span class="ico"><svg><use href="#i-trafo"/></svg></span>
+          <h3 data-i18n="svc.5">Trafo proje ve uygulama hizmetleri</h3>
+          <p data-i18n="svc.5d">Trafo merkezlerinin projelendirilmesi, onay süreçlerinin takibi, montajı ve devreye alınması.</p>
+          <span class="ref"><span>OG / AG</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -595,10 +617,16 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
     { id:'gursel', name:'Gürsel Residence', year:'2019 – 2021', cardYear:'2021',
       status:{tr:'Tamamlandı · 2021',en:'Completed · 2021'},
       card:{tr:'152 daire · 19 kat',en:'152 apartments · 19 floors'},
-      lead:{tr:'19 katlı konut kulesi. 152 daire; lobi, peyzajlı bahçe ve sosyal alanlarla teslim edildi. Galeride kazıdan iç mekân detaylarına kadar yapım süreci yer alıyor.',
-            en:'A 19-storey residential tower. 152 apartments delivered with a lobby, landscaped gardens and shared amenities. The gallery follows construction from excavation to interior finishes.'},
+      lead:{tr:'19 katlı konut kulesi. 152 daire; peyzajlı bahçe, çocuk oyun alanı ve sosyal alanlarla teslim edildi.',
+            en:'A 19-storey residential tower. 152 apartments delivered with landscaped gardens, a playground and shared amenities.'},
       specs:[[{tr:'Yapım yılı',en:'Built'},'2019 – 2021'],[{tr:'Daire',en:'Apartments'},'152'],[{tr:'Kat',en:'Floors'},'19'],[{tr:'İnşaat alanı',en:'Construction area'},'16.000 m²']],
-      imgs:[['img11',{tr:'Havadan görünüm',en:'Aerial view'}],['img12',{tr:'Cephe',en:'Facade'}],['img13',{tr:'Giriş ve peyzaj',en:'Entrance and landscape'}],['img15',{tr:'Bahçe',en:'Garden'}],['img27',{tr:'Kule ve çevresi',en:'Tower and surroundings'}],['img26',{tr:'Lobi',en:'Lobby'}],['img19',{tr:'Salon',en:'Living room'}],['img21',{tr:'Mutfak',en:'Kitchen'}],['img28',{tr:'Mutfak',en:'Kitchen'}],['img20',{tr:'Banyo',en:'Bathroom'}],['img22',{tr:'Oda',en:'Room'}],['img23',{tr:'Oda',en:'Room'}],['img24',{tr:'Balkon çıkışı',en:'Balcony door'}],['img25',{tr:'Daire girişi',en:'Apartment entrance'}],['img16',{tr:'Şantiye',en:'Construction site'}],['img18',{tr:'İksa ve kazı',en:'Shoring and excavation'}],['img17',{tr:'Temel donatısı',en:'Foundation rebar'}],['img14',{tr:'Radye temel',en:'Raft foundation'}]] },
+      imgs:[['img11',{tr:'Havadan görünüm',en:'Aerial view'}],['img12',{tr:'Cephe',en:'Facade'}],['img14',{tr:'Bahçe ve oyun alanı',en:'Garden and playground'}],['img15',{tr:'Bahçe',en:'Garden'}],['img13',{tr:'Radye temel donatısı',en:'Raft foundation rebar'}]] },
+    { id:'tekin-residence', name:'Tekin Residence', cardYear:{tr:'Tamamlandı',en:'Completed'},
+      status:{tr:'Tamamlandı',en:'Completed'},
+      card:{tr:'Konut projesi',en:'Residential project'},
+      lead:{tr:'Kazıdan anahtar teslimine Tekin Group tarafından inşa edilen konut projesi. Mermer zeminli lobi, ahşap parke salonlar, ankastre mutfaklar ve modern banyolarla teslim edildi.',en:'A residential project built by Tekin Group from excavation to handover, delivered with a marble-floored lobby, parquet living rooms, fitted kitchens and modern bathrooms.'},
+      specs:[[{tr:'Tür',en:'Type'},{tr:'Konut',en:'Residential'}],[{tr:'Durum',en:'Status'},{tr:'Tamamlandı',en:'Completed'}]],
+      imgs:[['img26',{tr:'Lobi',en:'Lobby'}],['img16',{tr:'Şantiye havadan',en:'Site from above'}],['img19',{tr:'Salon',en:'Living room'}],['img21',{tr:'Mutfak',en:'Kitchen'}],['img28',{tr:'Mutfak',en:'Kitchen'}],['img20',{tr:'Banyo',en:'Bathroom'}],['img22',{tr:'Oda',en:'Room'}],['img23',{tr:'Oda',en:'Room'}],['img24',{tr:'Balkon çıkışı',en:'Balcony door'}],['img25',{tr:'Daire girişi',en:'Apartment entrance'}],['img18',{tr:'İksa ve kazı',en:'Shoring and excavation'}],['img17',{tr:'Temel kazısı ve yalıtım',en:'Foundation pit and waterproofing'}]] },
     { id:'bil', name:{tr:'Bil Koleji',en:'Bil College'}, year:'2018 – 2019', cardYear:'2019',
       status:{tr:'Tamamlandı · 2019',en:'Completed · 2019'},
       card:{tr:'Eğitim yapısı · Kağıthane',en:'Education building · Kağıthane'},
@@ -623,7 +651,7 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
             en:'A residential project with 12,700 m² of construction area, delivered as a joint venture with Tekin Alüminyum. Retail units at street level, apartments above and a roof terrace with decorative railings.'},
       specs:[[{tr:'Teslim',en:'Delivered'},'2024'],[{tr:'Konum',en:'Location'},'Küçükköy, İstanbul'],[{tr:'İnşaat alanı',en:'Construction area'},'12.700 m²'],[{tr:'Ortaklık',en:'Partner'},'Tekin Alüminyum']],
       reel:{src:'kucukkoy.mp4',poster:'kucukkoy-poster'},
-      imgs:[['kucukkoy-aerial',{tr:'Havadan görünüm',en:'Aerial view'}],['kucukkoy-v2',{tr:'Cephe',en:'Facade'}],['kucukkoy-v3',{tr:'Çatı katı ve cephe detayı',en:'Roof level and facade detail'}]] },
+      imgs:[['kucukkoy-aerial',{tr:'Havadan görünüm',en:'Aerial view'}],['img27',{tr:'Cadde cephesi',en:'Street frontage'}],['kucukkoy-v2',{tr:'Cephe',en:'Facade'}],['kucukkoy-v3',{tr:'Çatı katı ve cephe detayı',en:'Roof level and facade detail'}]] },
     { id:'ilk-donem', name:{tr:'İlk dönem projeleri',en:'Early projects'}, year:{tr:'2016 öncesi',en:'Before 2016'}, cardYear:{tr:'2016 öncesi',en:'Before 2016'},
       status:{tr:'Tamamlandı · 2016 öncesi',en:'Completed · before 2016'},
       card:{tr:'~20 konut binası',en:'~20 residential buildings'},
@@ -730,7 +758,7 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
     "st.live":"Under construction","sp.area":"Construction area","sp.blocks":"Blocks","sp.status":"Status","go.detail":"View project →","sp.map":"View on map ↗",
     "p.mevlana":"Three residential blocks arranged around a landscaped courtyard, swimming pool, playground and basketball court.",
     "proc.eyebrow":"From site to handover","proc.title":"From foundation <em>to keys</em>","proc.intro":"From excavation to interior details, every stage is carried out with design quality and engineering discipline.",
-    "t.site":"Site setup","t.dig":"Shoring and excavation","t.rebar":"Foundation rebar","t.raft":"Raft foundation","t.lobby":"Lobby","t.living":"Living room","t.kitchen":"Kitchen","t.bath":"Bathroom","t.balcony":"Balcony","t.handover":"Handover",
+    "t.site":"Site setup","t.dig":"Shoring and excavation","t.rebar":"Foundation waterproofing","t.raft":"Raft foundation rebar","t.lobby":"Lobby","t.living":"Living room","t.kitchen":"Kitchen","t.bath":"Bathroom","t.balcony":"Balcony","t.handover":"Handover",
     "ab.eyebrow":"About us","ab.title":"Powered by Experience, <em>Shaping the Future.</em>","ab.badge":"years of experience",
     "ab.lead":"With more than 20 years of experience and the knowledge gained from over 5,000 homes, we create solutions in construction and engineering that add value to the future.",
     "ab.p1":"As TEKİN GROUP, we bring together contemporary architecture, engineering expertise and innovative technologies. Grounded in aesthetics, functionality and sustainability, we develop living spaces that meet the needs not only of today but of the future.",
@@ -743,6 +771,13 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
     "tl.eyebrow":"Milestones","tl.title":"Over the years","tl.y0":"Before 2016","tl.b0":"~20 residential buildings","tl.d0":"Projects of 10 to 48 apartments","tl.d1":"160 apartments · 30,000 m²","tl.d2":"Kağıthane · education building","tl.d3":"152 apartments · 19 floors","tl.d4":"12,700 m² · joint venture","tl.y5":"Today","tl.d5":"23,000 m² · under construction",
     "n.bil":"Bil College","n.kucukkoy":"Küçükköy Project",
     "ct.eyebrow":"Contact","ct.title":"Let's talk about <em>the next project.</em>","ct.office":"Head office","ct.copy":"Copy address","ct.phone":"Phone","ct.copyTel":"Copy number",
+    "vm.v.e":"Our vision","vm.v.t":"Building Tomorrow's Living Spaces Today.",
+    "vm.v.p1":"To develop high-quality projects that raise living standards, add value to their region and meet the needs of the future, through our contemporary architectural approach, innovative mindset and deep-rooted industry experience.",
+    "vm.v.p2":"To be a pioneering, innovative and prestigious brand in real estate built on quality, trust and sustainability, adding value to the future of cities with buildings that unite aesthetics and functionality.",
+    "vm.m.e":"Our mission","vm.m.t":"Building with Trust, Adding Value to Life.",
+    "vm.m.p1":"To build people-focused, safe, aesthetic and long-lasting living spaces with more than 20 years of industry experience and the knowledge gained from over 5,000 homes.",
+    "vm.m.p2":"To bring together modern architecture, quality materials and high construction standards in every project, creating sustainable buildings that improve comfort and live in harmony with their surroundings.",
+    "vm.m.p3":"To hold customer satisfaction, transparency and reliability as core principles, producing not just homes but living spaces that keep their value for generations.",
     "lb.close":"Close ✕"
   };
   var DICT = { en: EN };
