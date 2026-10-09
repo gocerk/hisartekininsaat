@@ -67,6 +67,10 @@ h1 em,h2 em{font-style:normal;color:var(--gold)}
 .lang{display:flex;border:1px solid rgba(243,241,236,.2);overflow:hidden}
 .lang button{background:none;border:0;color:#a5b0b8;font:600 .7rem var(--f-body);letter-spacing:.1em;padding:7px 10px;cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--gold);color:var(--navy)}
+.lang button{display:inline-flex;align-items:center;gap:7px;padding:7px 11px}
+.lang .flag{width:20px;height:13px;flex:0 0 auto;box-shadow:0 0 0 1px rgba(255,255,255,.25)}
+.lang button[aria-pressed="false"] .flag{opacity:.75}
+.lang button:hover .flag{opacity:1}
 @media (max-width:1080px){.nav a:not(.btn){display:none}}
 @media (max-width:520px){.nav .btn{display:none}}
 
@@ -318,8 +322,8 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
       <a href="#iletisim" data-sec="iletisim" data-i18n="nav.contact">İletişim</a>
       <a class="btn" href="#iletisim" data-i18n="nav.cta">Bize ulaşın →</a>
       <div class="lang" role="group" aria-label="Dil">
-        <button type="button" data-lang="tr" aria-pressed="true">TR</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang="tr" aria-pressed="true" aria-label="Türkçe"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="10.6" cy="10" r="5" fill="#fff"/><circle cx="11.85" cy="10" r="4" fill="#E30A17"/><polygon points="18.80,10.00 17.07,10.56 17.07,12.38 16.00,10.91 14.28,11.47 15.35,10.00 14.28,8.53 16.00,9.09 17.07,7.62 17.07,9.44" fill="#fff"/></svg>TR</button>
+        <button type="button" data-lang="en" aria-pressed="false" aria-label="English"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><clipPath id="ukS"><path d="M0,0v30h60V0z"/></clipPath><clipPath id="ukT"><path d="M30,15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#ukS)"><path d="M0,0v30h60V0z" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#ukT)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></g></svg>EN</button>
       </div>
     </nav>
   </div>
