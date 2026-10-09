@@ -259,6 +259,12 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
 .gallery button:nth-child(5n+1){grid-column:span 8;grid-row:span 2;aspect-ratio:auto}
 .gallery button img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .gallery button:hover img{transform:scale(1.04)}
+.reel{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center;margin-bottom:clamp(56px,7vw,96px)}
+.reel video{width:100%;aspect-ratio:9/16;object-fit:cover;background:var(--navy);max-height:80vh}
+.reel-copy{display:flex;flex-direction:column;gap:16px}
+.reel-copy h2{font-size:var(--s-xl)}
+.reel-copy p{margin:0;max-width:44ch}
+@media (max-width:700px){.reel{grid-template-columns:1fr}.reel video{max-width:360px;justify-self:center}}
 .nextp{display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid var(--line);padding-block:32px 72px}
 .nextp a{text-decoration:none;display:grid;gap:6px;text-align:right}
 .nextp a b{font-family:var(--f-serif);font-weight:600;font-size:clamp(1.4rem,2.6vw,2.1rem)}
@@ -605,10 +611,11 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
       status:{tr:'Tamamlandı · 2024',en:'Completed · 2024'},
       card:{tr:'Tekin Alüminyum iş ortaklığı',en:'Joint venture with Tekin Alüminyum'},
       type:{big:'12.700',unit:'m²'},
-      lead:{tr:'Tekin Alüminyum iş ortaklığıyla gerçekleştirilen 12.700 m² inşaat alanlı konut projesi.',
-            en:'A residential project with 12,700 m² of construction area, delivered as a joint venture with Tekin Alüminyum.'},
+      lead:{tr:'Tekin Alüminyum iş ortaklığıyla gerçekleştirilen 12.700 m² inşaat alanlı konut projesi. Zemin katta ticari birimler, üst katlarda konutlar ve dekoratif korkuluklu çatı terasıyla tamamlandı.',
+            en:'A residential project with 12,700 m² of construction area, delivered as a joint venture with Tekin Alüminyum. Retail units at street level, apartments above and a roof terrace with decorative railings.'},
       specs:[[{tr:'Teslim',en:'Delivered'},'2024'],[{tr:'Konum',en:'Location'},'Küçükköy, İstanbul'],[{tr:'İnşaat alanı',en:'Construction area'},'12.700 m²'],[{tr:'Ortaklık',en:'Partner'},'Tekin Alüminyum']],
-      imgs:[] },
+      reel:{src:'kucukkoy.mp4',poster:'kucukkoy-poster'},
+      imgs:[['kucukkoy-aerial',{tr:'Havadan görünüm',en:'Aerial view'}],['kucukkoy-v2',{tr:'Cephe',en:'Facade'}],['kucukkoy-v3',{tr:'Çatı katı ve cephe detayı',en:'Roof level and facade detail'}]] },
     { id:'ilk-donem', name:{tr:'İlk dönem projeleri',en:'Early projects'}, year:{tr:'2016 öncesi',en:'Before 2016'}, cardYear:{tr:'2016 öncesi',en:'Before 2016'},
       status:{tr:'Tamamlandı · 2016 öncesi',en:'Completed · before 2016'},
       card:{tr:'~20 konut binası',en:'~20 residential buildings'},
@@ -655,7 +662,9 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
             : '<div class="d-plain wrap" style="color:#fff"><span class="status">'+esc(L(p.status))+'</span><h1>'+esc(L(p.name))+'</h1></div>')+
       '<div class="wrap"><div class="d-body"><p class="lead">'+esc(L(p.lead))+'</p><div class="side"><dl class="specs">'+specs+'</dl>'+
       (p.map?'<a class="textlink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+p.map+'">'+(lang==='en'?'View on map ↗':'Haritada görüntüle ↗')+'</a>':'')+
-      '</div></div>'+gal+
+      '</div></div>'+
+      (p.reel ? '<div class="reel"><video src="'+p.reel.src+'" poster="img/'+p.reel.poster+'.webp" muted playsinline autoplay loop controls preload="metadata"></video><div class="reel-copy"><div class="eyebrow rule">'+(lang==='en'?'Drone footage':'Drone çekimi')+'</div><h2>'+(lang==='en'?'The building, <em>as delivered.</em>':'Teslim edilen <em>haliyle.</em>')+'</h2><p class="muted">'+(lang==='en'?'Unedited drone footage of the completed building and its street.':'Tamamlanan binanın ve çevresinin kurgusuz drone çekimi.')+'</p></div></div>' : '')+
+      gal+
       '<div class="nextp"><span class="eyebrow rule">'+(lang==='en'?'Next project':'Sonraki proje')+'</span><a href="#proje-'+nx.id+'"><span class="muted" style="font-size:var(--s-sm)">'+esc(L(nx.status))+'</span><b>'+esc(L(nx.name))+' →</b></a></div></div>';
     $$('.gallery button',$('#detail')).forEach(function(b){ b.addEventListener('click',function(){ openLb(+b.dataset.k); }); });
   }
