@@ -93,6 +93,9 @@ h1 em,h2 em{font-style:normal;font-weight:300;color:var(--gold)}
 .stage i{display:block;height:2px;background:rgba(243,241,236,.18);position:relative;overflow:hidden}
 .stage i::after{content:"";position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(var(--p,0))}
 .stage.on{color:#fff}
+.playbtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;width:84px;height:84px;border-radius:50%;border:0;background:rgba(195,154,95,.94);color:var(--navy);display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.playbtn svg{width:34px;height:34px;margin-left:4px}
+.playbtn:hover{background:var(--gold-2)}
 .parcel{position:absolute;right:var(--gutter);top:calc(env(safe-area-inset-top,0px) + 100px);font-family:var(--f-mono);font-size:var(--s-xs);color:#fff;background:rgba(15,29,41,.78);border-left:2px solid var(--gold);padding:10px 14px;display:grid;gap:2px;text-align:right}
 .parcel span{color:var(--gold-2)}
 @media (max-width:700px){.parcel{display:none}.film-veil{background:linear-gradient(0deg,rgba(15,29,41,.95) 0%,rgba(15,29,41,.6) 55%,rgba(15,29,41,.25) 100%)}}
@@ -343,7 +346,8 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
   <!-- Scroll-scrubbed hero film: Mevlana site, plot → structure → handover -->
   <section class="film" id="hero" aria-label="Tekin Group">
     <div class="film-stick">
-      <video id="film" src="hero.mp4" poster="img/poster.webp" muted playsinline preload="auto" aria-hidden="true"></video>
+      <video id="film" poster="img/poster.webp" muted playsinline loop preload="auto" aria-hidden="true"></video>
+      <button type="button" class="playbtn" id="filmPlay" hidden aria-label="Videoyu oynat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
       <div class="film-veil"></div>
       <div class="parcel" aria-hidden="true">
         <span data-i18n="hero.parcelLabel">Şantiye · Mevlana</span>
@@ -696,6 +700,7 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
       gal+
       '<div class="nextp"><span class="eyebrow rule">'+(lang==='en'?'Next project':'Sonraki proje')+'</span><a href="#proje-'+nx.id+'"><span class="muted" style="font-size:var(--s-sm)">'+esc(L(nx.status))+'</span><b>'+esc(L(nx.name))+' →</b></a></div></div>';
     $$('.gallery button',$('#detail')).forEach(function(b){ b.addEventListener('click',function(){ openLb(+b.dataset.k); }); });
+    $$('video[autoplay]',$('#detail')).forEach(function(v){ v.muted=true; ensurePlay(v); });
   }
 
   /* ---------- Lightbox ---------- */
@@ -812,15 +817,25 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
   // Touch devices don't repaint a paused video while it is scrubbed, so there the film simply autoplays (muted, looped)
   var isTouch = matchMedia('(hover:none) and (pointer:coarse)').matches;
   var autoMode = true; // the hero film autoplays everywhere (muted, looped); captions follow playback
-  if(autoMode && !reduce){
-    filmSec.classList.add('auto');
-    film.src = isTouch ? 'hero-m.mp4' : 'hero.mp4'; film.loop=true; film.autoplay=true; film.setAttribute('autoplay','');
-    var tryPlay=function(){ var pr=film.play(); if(pr&&pr.catch) pr.catch(function(){}); };
-    tryPlay(); film.addEventListener('loadeddata',tryPlay,{once:true});
-    document.addEventListener('visibilitychange',function(){ if(!document.hidden) tryPlay(); });
-    addEventListener('touchstart',tryPlay,{passive:true,once:true});
-    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tryPlay(); else film.pause(); }); }).observe(filmSec); }
-  } else if(autoMode){ filmSec.classList.add('auto'); }
+  // Autoplay can still be refused (iOS Low Power Mode, a browser's "block autoplay" setting, data saver).
+  // In that case a play button appears over the poster, so the film is one tap away instead of looking broken.
+  var playBtn=$('#filmPlay');
+  function ensurePlay(v, btn){
+    var pr; try{ pr=v.play(); }catch(e){}
+    if(pr && pr.then){ pr.then(function(){ if(btn) btn.hidden=true; }).catch(function(){ if(btn) btn.hidden=false; }); }
+    if(btn) setTimeout(function(){ if(v.paused && !document.hidden && v.getBoundingClientRect().bottom>0) btn.hidden=false; }, 2500);
+  }
+  filmSec.classList.add('auto');
+  film.src = isTouch ? 'hero-m.mp4' : 'hero.mp4';
+  film.muted=true; film.defaultMuted=true; film.autoplay=true; film.setAttribute('autoplay','');
+  var tryPlay=function(){ ensurePlay(film, playBtn); };
+  playBtn.addEventListener('click',function(){ film.muted=true; film.play().then(function(){ playBtn.hidden=true; }).catch(function(){}); });
+  film.addEventListener('playing',function(){ playBtn.hidden=true; });
+  tryPlay(); film.addEventListener('loadeddata',tryPlay,{once:true});
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden && !home.hidden) tryPlay(); });
+  addEventListener('touchstart',function(){ if(film.paused && !home.hidden) tryPlay(); },{passive:true,once:true});
+  addEventListener('click',function(){ if(film.paused && !home.hidden) tryPlay(); },{once:true});
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tryPlay(); else film.pause(); }); }).observe(filmSec); }
 
   function frame(){
     top.classList.toggle('solid', scrollY>innerHeight*0.6 || !detail.hidden);
