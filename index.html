@@ -820,10 +820,25 @@ footer{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-
   // Autoplay can still be refused (iOS Low Power Mode, a browser's "block autoplay" setting, data saver).
   // In that case a play button appears over the poster, so the film is one tap away instead of looking broken.
   var playBtn=$('#filmPlay');
+  // Some hosts don't answer byte-range requests (or send the wrong MIME type); Safari/iOS then shows only the poster.
+  // If the video hasn't produced a frame after a few seconds, download it whole and play it from memory instead.
+  function blobFallback(v, btn){
+    if(v._blobTried) return; v._blobTried=true;
+    var url=v.currentSrc||v.src; if(!url || url.indexOf('blob:')===0) return;
+    if(!window.fetch || !window.URL || !URL.createObjectURL){ if(btn) btn.hidden=false; return; }
+    fetch(url,{cache:'force-cache'}).then(function(r){ if(!r.ok) throw new Error(r.status); return r.blob(); })
+      .then(function(b){ v.src=URL.createObjectURL(new Blob([b],{type:'video/mp4'})); v.load(); var p=v.play(); if(p&&p.catch) p.catch(function(){ if(btn) btn.hidden=false; }); })
+      .catch(function(){ if(btn) btn.hidden=false; });
+  }
   function ensurePlay(v, btn){
     var pr; try{ pr=v.play(); }catch(e){}
-    if(pr && pr.then){ pr.then(function(){ if(btn) btn.hidden=true; }).catch(function(){ if(btn) btn.hidden=false; }); }
-    if(btn) setTimeout(function(){ if(v.paused && !document.hidden && v.getBoundingClientRect().bottom>0) btn.hidden=false; }, 2500);
+    if(pr && pr.then){ pr.then(function(){ if(btn) btn.hidden=true; }).catch(function(err){ if(err && err.name==='NotAllowedError'){ if(btn) btn.hidden=false; } else blobFallback(v,btn); }); }
+    if(!v._watch){
+      v._watch=true;
+      v.addEventListener('error',function(){ blobFallback(v,btn); });
+      setTimeout(function(){ if(v.readyState<2 && !document.hidden) blobFallback(v,btn); }, 4500);
+    }
+    if(btn) setTimeout(function(){ if(v.paused && v.readyState>=2 && !document.hidden && v.getBoundingClientRect().bottom>0) btn.hidden=false; }, 3000);
   }
   filmSec.classList.add('auto');
   film.src = isTouch ? 'hero-m.mp4' : 'hero.mp4';
